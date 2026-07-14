@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, animate, useMotionValue, useTransform } from "framer-motion";
 import { Check, ArrowUpRight, Sparkles } from "lucide-react";
 import { Reveal, Eyebrow } from "./motion";
 
@@ -43,6 +43,21 @@ const tiers = [
 ];
 
 const inr = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
+
+// Rapidly counts from previous value to the new value for a satisfying price-drop effect
+const AnimatedRupee = ({ value, className, testId }) => {
+  const mv = useMotionValue(value);
+  const text = useTransform(mv, (v) => inr(v));
+  useEffect(() => {
+    const controls = animate(mv, value, { duration: 0.6, ease: [0.22, 1, 0.36, 1] });
+    return () => controls.stop();
+  }, [value, mv]);
+  return (
+    <motion.span data-testid={testId} className={className}>
+      {text}
+    </motion.span>
+  );
+};
 
 export const Pricing = () => {
   const [cycle, setCycle] = useState(billing[0]);
@@ -162,16 +177,11 @@ export const Pricing = () => {
                       )}
                     </div>
                     <div className="mt-1 flex items-baseline gap-1">
-                      <motion.span
-                        key={t.name + Math.round(price)}
-                        initial={{ opacity: 0, y: 18, filter: "blur(4px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                        data-testid={`price-${t.name.toLowerCase()}`}
+                      <AnimatedRupee
+                        value={price}
+                        testId={`price-${t.name.toLowerCase()}`}
                         className={`font-serif text-6xl font-light ${isMaroon ? "text-vaani-cream" : "text-vaani-ink"}`}
-                      >
-                        {inr(price)}
-                      </motion.span>
+                      />
                       <span className={isMaroon ? "text-vaani-cream/70" : "text-vaani-muted"}>{t.suffix}</span>
                     </div>
                     <p className={`mt-2 font-mono text-[11px] uppercase tracking-wider ${isMaroon ? "text-vaani-cream/50" : "text-vaani-muted"}`}>

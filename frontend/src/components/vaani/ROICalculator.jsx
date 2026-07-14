@@ -36,7 +36,7 @@ export const ROICalculator = () => {
           </p>
         </Reveal>
 
-        <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid items-center gap-16 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal className="space-y-12">
             {controls.map((c) => (
               <div key={c.id}>

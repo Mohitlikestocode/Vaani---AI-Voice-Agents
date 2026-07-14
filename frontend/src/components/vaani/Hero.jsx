@@ -109,6 +109,31 @@ export const Hero = () => {
           >
             ★ 4.9/5 from 50+ reviews · Trusted by 200+ businesses across India
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.15, duration: 0.9 }}
+            data-testid="featured-on"
+            className="mt-6 flex items-center gap-4"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-vaani-muted">
+              As featured on
+            </span>
+            <span className="h-4 w-px bg-vaani-gold-soft" />
+            <a
+              href="https://medium.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="featured-medium-link"
+              className="flex items-center gap-2 text-vaani-ink transition-opacity duration-300 hover:opacity-60"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
+                <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+              </svg>
+              <span className="text-xl font-bold tracking-tight">Medium</span>
+            </a>
+          </motion.div>
         </motion.div>
 
         {/* Right: parallax voice demo */}

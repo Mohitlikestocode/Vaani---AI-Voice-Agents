@@ -62,13 +62,13 @@ export const Features = () => (
 
         {/* Row 2 — always-on (GOLD, 2) + analytics (2) + embed (MAROON, 2) */}
         <Reveal delay={0.05} className="md:col-span-2">
-          <div className="flex h-full flex-col justify-between bg-vaani-gold p-8 text-vaani-maroon md:p-10">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-vaani-maroon/15">
+          <div className="flex h-full flex-col justify-between bg-vaani-gold-soft p-8 text-vaani-maroon md:p-10">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-vaani-maroon/12">
               <InfinityIcon className="h-6 w-6 text-vaani-maroon" strokeWidth={1.75} />
             </div>
             <div className="mt-10">
               <h3 className="font-serif text-2xl font-light">Always on, never off</h3>
-              <p className="mt-3 text-sm text-vaani-maroon/80">
+              <p className="mt-3 text-sm text-vaani-maroon/75">
                 24/7 availability. Handles 100 simultaneous conversations. Zero
                 downtime, zero sick days.
               </p>

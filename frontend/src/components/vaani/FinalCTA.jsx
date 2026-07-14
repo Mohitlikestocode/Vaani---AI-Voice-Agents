@@ -84,7 +84,15 @@ export const Footer = () => (
         <div className="flex gap-5 font-mono text-xs text-vaani-cream/70">
           <a href="#top" className="transition-colors hover:text-vaani-gold">𝕏</a>
           <a href="#top" className="transition-colors hover:text-vaani-gold">GitHub</a>
-          <a href="#top" className="transition-colors hover:text-vaani-gold">LinkedIn</a>
+          <a
+            href="https://www.linkedin.com/company/vaani-ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="footer-linkedin"
+            className="transition-colors hover:text-vaani-gold"
+          >
+            LinkedIn
+          </a>
         </div>
       </div>
 
