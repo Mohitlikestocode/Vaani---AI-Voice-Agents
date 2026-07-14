@@ -31,7 +31,7 @@ export const Manifesto = () => {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setActive((a) => (a + 1) % steps.length), 2200);
+    const id = setInterval(() => setActive((a) => (a + 1) % steps.length), 5000);
     return () => clearInterval(id);
   }, []);
 
@@ -72,13 +72,17 @@ export const Manifesto = () => {
                   data-testid={`step-card-${i}`}
                   onMouseEnter={() => setActive(i)}
                   animate={{ y: isActive ? -8 : 0 }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className={`relative flex h-full flex-col overflow-hidden rounded-[24px] border p-8 md:p-10 ${
                     isActive
                       ? "border-vaani-maroon bg-vaani-maroon text-vaani-cream shadow-[0_35px_70px_-30px_rgba(110,26,26,0.6)]"
                       : "border-vaani-gold-soft bg-vaani-white"
                   }`}
-                  style={{ transitionProperty: "background-color, border-color, color" }}
+                  style={{
+                    transitionProperty: "background-color, border-color, color, box-shadow",
+                    transitionDuration: "1400ms",
+                    transitionTimingFunction: "ease-in-out",
+                  }}
                 >
                   {/* progress bar on active */}
                   {isActive && (
@@ -86,21 +90,21 @@ export const Manifesto = () => {
                       key={`bar-${i}-${active}`}
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
-                      transition={{ duration: 2.2, ease: "linear" }}
+                      transition={{ duration: 5, ease: "linear" }}
                       className="absolute inset-x-0 top-0 h-1 origin-left bg-vaani-gold"
                     />
                   )}
 
                   <div className="mb-8 flex items-center justify-between">
                     <span
-                      className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors duration-500 ${
+                      className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors duration-[1400ms] ${
                         isActive ? "bg-vaani-cream/15 text-vaani-gold" : "bg-vaani-maroon/10 text-vaani-maroon"
                       }`}
                     >
                       <s.icon className="h-5 w-5" strokeWidth={1.75} />
                     </span>
                     <span
-                      className={`font-serif text-6xl font-light leading-none transition-colors duration-500 ${
+                      className={`font-serif text-6xl font-light leading-none transition-colors duration-[1400ms] ${
                         isActive ? "text-vaani-gold" : "text-vaani-gold-soft"
                       }`}
                     >
@@ -109,14 +113,14 @@ export const Manifesto = () => {
                   </div>
 
                   <h3
-                    className={`font-serif text-3xl font-light transition-colors duration-500 ${
+                    className={`font-serif text-3xl font-light transition-colors duration-[1400ms] ${
                       isActive ? "text-vaani-cream" : "text-vaani-maroon"
                     }`}
                   >
                     {s.title}
                   </h3>
                   <p
-                    className={`mt-3 flex-1 transition-colors duration-500 ${
+                    className={`mt-3 flex-1 transition-colors duration-[1400ms] ${
                       isActive ? "text-vaani-cream/80" : "text-vaani-muted"
                     }`}
                   >
@@ -126,7 +130,7 @@ export const Manifesto = () => {
                     {s.detail.map((d) => (
                       <span
                         key={d}
-                        className={`rounded-full px-3 py-1.5 font-mono text-[11px] transition-colors duration-500 ${
+                        className={`rounded-full px-3 py-1.5 font-mono text-[11px] transition-colors duration-[1400ms] ${
                           isActive ? "bg-vaani-cream/12 text-vaani-cream/90" : "bg-vaani-sand text-vaani-ink"
                         }`}
                       >

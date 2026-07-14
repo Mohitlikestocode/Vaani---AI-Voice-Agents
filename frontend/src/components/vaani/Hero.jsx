@@ -148,7 +148,7 @@ export const Hero = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="absolute -top-8 left-6 z-20 hidden -translate-y-full rounded-2xl border border-vaani-gold-soft bg-vaani-white px-4 py-3 shadow-lg lg:block"
+            className="absolute bottom-full left-6 mb-5 z-20 hidden rounded-2xl border border-vaani-gold-soft bg-vaani-white px-4 py-3 shadow-lg lg:block"
           >
             <p className="font-mono text-[10px] uppercase tracking-wider text-vaani-muted">
               Calls handled this week
@@ -159,7 +159,7 @@ export const Hero = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.25, duration: 0.8 }}
-            className="absolute -bottom-8 right-6 z-20 hidden translate-y-full rounded-2xl bg-vaani-maroon px-4 py-3 text-vaani-cream shadow-lg lg:block"
+            className="absolute top-full right-6 mt-5 z-20 hidden rounded-2xl bg-vaani-maroon px-4 py-3 text-vaani-cream shadow-lg lg:block"
           >
             <p className="font-mono text-[10px] uppercase tracking-wider opacity-70">
               New booking confirmed
