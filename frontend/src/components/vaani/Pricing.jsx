@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ArrowUpRight, Sparkles } from "lucide-react";
 import { Reveal, Eyebrow } from "./motion";
 
 const billing = [
-  { id: "monthly", label: "Monthly", mult: 1 },
-  { id: "sixmo", label: "6 months −10%", mult: 0.9 },
-  { id: "annual", label: "Annual −20%", mult: 0.8 },
+  { id: "monthly", label: "Monthly", mult: 1, save: 0, term: "billed monthly", months: 1 },
+  { id: "sixmo", label: "6 months", mult: 0.9, save: 10, term: "billed every 6 months", months: 6 },
+  { id: "annual", label: "Annual", mult: 0.8, save: 20, term: "billed yearly", months: 12 },
 ];
 
 const tiers = [
@@ -16,16 +16,17 @@ const tiers = [
     suffix: "forever",
     tagline: "To try Vaani with one agent.",
     cta: "Get started free",
-    highlight: false,
+    accent: "gold",
     features: ["50 conversations / month", "1 agent", "Community support", "Vaani branding on agent", "Browser voices (Web Speech)"],
   },
   {
     name: "Pro",
     base: 1999,
     suffix: "/mo",
-    tagline: "Billed monthly, cancel anytime",
+    tagline: "For growing local businesses.",
     cta: "Start 14-day free trial",
     highlight: true,
+    accent: "cream",
     plus: "EVERYTHING IN FREE, PLUS",
     features: ["500 conversations / month", "5 agents", "Email support", "Remove Vaani branding", "Custom greeting & instructions", "Analytics dashboard", "Priority AI model"],
   },
@@ -33,9 +34,9 @@ const tiers = [
     name: "Business",
     base: 6999,
     suffix: "/mo",
-    tagline: "Billed monthly, cancel anytime",
+    tagline: "For multi-location & scale.",
     cta: "Talk to sales",
-    highlight: false,
+    accent: "maroon",
     plus: "EVERYTHING IN PRO, PLUS",
     features: ["Unlimited conversations", "Unlimited agents", "Dedicated support", "API access", "Custom domain", "Webhook integrations", "Premium AI voices (soon)"],
   },
@@ -54,17 +55,18 @@ export const Pricing = () => {
           <h2 className="mx-auto mt-5 max-w-3xl font-serif text-5xl font-light leading-[1.02] tracking-tight text-vaani-ink md:text-7xl">
             One agent pays for itself in a day.
           </h2>
-          <p className="mt-6 text-vaani-muted">Start free. Pick a longer term and your monthly price drops.</p>
+          <p className="mt-6 text-vaani-muted">Start free. Commit to a longer term and watch your monthly price drop.</p>
         </Reveal>
 
-        <Reveal className="mb-16 flex justify-center">
-          <div data-testid="billing-toggle" className="inline-flex rounded-full border border-vaani-gold-soft bg-vaani-white p-1.5">
+        {/* Toggle */}
+        <Reveal className="mb-16 flex flex-col items-center gap-3">
+          <div data-testid="billing-toggle" className="inline-flex rounded-full border border-vaani-gold-soft bg-vaani-white p-1.5 shadow-sm">
             {billing.map((b) => (
               <button
                 key={b.id}
                 data-testid={`billing-${b.id}`}
                 onClick={() => setCycle(b)}
-                className={`relative rounded-full px-5 py-2.5 text-sm transition-colors ${
+                className={`relative flex items-center gap-2 rounded-full px-5 py-2.5 text-sm transition-colors md:px-6 ${
                   cycle.id === b.id ? "text-vaani-cream" : "text-vaani-muted hover:text-vaani-maroon"
                 }`}
               >
@@ -76,70 +78,140 @@ export const Pricing = () => {
                   />
                 )}
                 <span className="relative z-10">{b.label}</span>
+                {b.save > 0 && (
+                  <span
+                    className={`relative z-10 rounded-full px-2 py-0.5 font-mono text-[10px] ${
+                      cycle.id === b.id ? "bg-vaani-gold text-vaani-maroon" : "bg-vaani-gold/25 text-vaani-maroon"
+                    }`}
+                  >
+                    −{b.save}%
+                  </span>
+                )}
               </button>
             ))}
           </div>
+          <AnimatePresence mode="wait">
+            {cycle.save > 0 && (
+              <motion.p
+                key={cycle.id}
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                className="flex items-center gap-1.5 font-mono text-xs text-vaani-maroon"
+              >
+                <Sparkles className="h-3.5 w-3.5 text-vaani-gold" />
+                You&apos;re saving {cycle.save}% with {cycle.label.toLowerCase()} billing
+              </motion.p>
+            )}
+          </AnimatePresence>
         </Reveal>
 
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid items-stretch gap-6 lg:grid-cols-3">
           {tiers.map((t, i) => {
             const price = t.base === 0 ? 0 : t.base * cycle.mult;
+            const discounted = t.base > 0 && cycle.mult < 1;
+            const monthlySave = t.base - price;
+            const isMaroon = t.highlight;
             return (
-              <Reveal key={t.name} delay={i * 0.08}>
+              <Reveal key={t.name} delay={i * 0.08} className="h-full">
                 <div
                   data-testid={`pricing-card-${t.name.toLowerCase()}`}
-                  className={`relative flex h-full flex-col rounded-[24px] border p-8 md:p-10 ${
-                    t.highlight
-                      ? "border-vaani-maroon bg-vaani-maroon text-vaani-cream shadow-[0_30px_70px_-25px_rgba(110,26,26,0.6)]"
+                  className={`relative flex h-full flex-col overflow-hidden rounded-[24px] border transition-transform duration-300 hover:-translate-y-1 ${
+                    isMaroon
+                      ? "border-vaani-maroon bg-vaani-maroon text-vaani-cream shadow-[0_35px_80px_-25px_rgba(110,26,26,0.65)] lg:scale-[1.03]"
                       : "border-vaani-gold-soft bg-vaani-white"
                   }`}
                 >
-                  {t.highlight && (
-                    <span className="absolute -top-3 left-8 rounded-full bg-vaani-gold px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-vaani-maroon">
-                      Most popular
+                  {/* accent cap */}
+                  <span
+                    className={`absolute inset-x-0 top-0 h-1.5 ${
+                      t.accent === "gold" ? "bg-vaani-gold" : t.accent === "maroon" ? "bg-vaani-maroon" : "bg-vaani-gold"
+                    }`}
+                  />
+                  {isMaroon && (
+                    <span className="absolute -right-12 top-6 rotate-45 bg-vaani-gold px-12 py-1 text-center font-mono text-[10px] uppercase tracking-wider text-vaani-maroon">
+                      Popular
                     </span>
                   )}
-                  <h3 className={`font-serif text-3xl font-light ${t.highlight ? "text-vaani-cream" : "text-vaani-maroon"}`}>
-                    {t.name}
-                  </h3>
-                  <div className="mt-4 flex items-baseline gap-1">
-                    <motion.span
-                      key={Math.round(price)}
-                      initial={{ opacity: 0.4, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.25 }}
-                      data-testid={`price-${t.name.toLowerCase()}`}
-                      className={`font-serif text-5xl font-light ${t.highlight ? "text-vaani-cream" : "text-vaani-ink"}`}
-                    >
-                      {inr(price)}
-                    </motion.span>
-                    <span className={t.highlight ? "text-vaani-cream/70" : "text-vaani-muted"}>{t.suffix}</span>
-                  </div>
-                  <p className={`mt-2 text-sm ${t.highlight ? "text-vaani-cream/70" : "text-vaani-muted"}`}>{t.tagline}</p>
 
-                  <a
-                    href="#top"
-                    data-testid={`pricing-cta-${t.name.toLowerCase()}`}
-                    className={`mt-7 block rounded-full px-6 py-3.5 text-center text-sm font-medium transition-transform duration-300 hover:-translate-y-0.5 ${
-                      t.highlight ? "bg-vaani-cream text-vaani-maroon" : "bg-vaani-maroon text-vaani-cream"
-                    }`}
-                  >
-                    {t.cta}
-                  </a>
+                  <div className="p-8 md:p-10">
+                    <h3 className={`font-serif text-3xl font-light ${isMaroon ? "text-vaani-cream" : "text-vaani-maroon"}`}>
+                      {t.name}
+                    </h3>
+                    <p className={`mt-1 text-sm ${isMaroon ? "text-vaani-cream/70" : "text-vaani-muted"}`}>{t.tagline}</p>
 
-                  {t.plus && (
-                    <p className={`mt-8 font-mono text-[10px] uppercase tracking-widest ${t.highlight ? "text-vaani-gold" : "text-vaani-muted"}`}>
-                      {t.plus}
+                    {/* Price */}
+                    <div className="mt-6 flex h-8 items-center gap-2">
+                      <AnimatePresence mode="popLayout">
+                        {discounted && (
+                          <motion.span
+                            key={"orig-" + t.name}
+                            initial={{ opacity: 0, x: -4 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0 }}
+                            className={`font-mono text-lg line-through ${isMaroon ? "text-vaani-cream/40" : "text-vaani-muted/50"}`}
+                          >
+                            {inr(t.base)}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                      {discounted && (
+                        <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] ${isMaroon ? "bg-vaani-gold text-vaani-maroon" : "bg-vaani-maroon text-vaani-cream"}`}>
+                          Save {inr(monthlySave)}/mo
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-1 flex items-baseline gap-1">
+                      <motion.span
+                        key={t.name + Math.round(price)}
+                        initial={{ opacity: 0, y: 18, filter: "blur(4px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        data-testid={`price-${t.name.toLowerCase()}`}
+                        className={`font-serif text-6xl font-light ${isMaroon ? "text-vaani-cream" : "text-vaani-ink"}`}
+                      >
+                        {inr(price)}
+                      </motion.span>
+                      <span className={isMaroon ? "text-vaani-cream/70" : "text-vaani-muted"}>{t.suffix}</span>
+                    </div>
+                    <p className={`mt-2 font-mono text-[11px] uppercase tracking-wider ${isMaroon ? "text-vaani-cream/50" : "text-vaani-muted"}`}>
+                      {t.base === 0 ? "no card required" : cycle.months > 1 ? `${inr(price * cycle.months)} ${cycle.term}` : cycle.term}
                     </p>
-                  )}
-                  <ul className={`space-y-3 ${t.plus ? "mt-4" : "mt-8"}`}>
-                    {t.features.map((f) => (
-                      <li key={f} className={`flex items-start gap-3 text-sm ${t.highlight ? "text-vaani-cream/90" : "text-vaani-ink"}`}>
-                        <Check className={`mt-0.5 h-4 w-4 shrink-0 ${t.highlight ? "text-vaani-gold" : "text-vaani-maroon"}`} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
+
+                    <a
+                      href="#top"
+                      data-testid={`pricing-cta-${t.name.toLowerCase()}`}
+                      className={`group mt-7 flex items-center justify-center gap-2 rounded-full px-6 py-4 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 ${
+                        isMaroon
+                          ? "bg-vaani-gold text-vaani-maroon hover:bg-vaani-cream"
+                          : t.accent === "maroon"
+                          ? "bg-vaani-maroon text-vaani-cream hover:bg-vaani-maroon-dark"
+                          : "border border-vaani-maroon text-vaani-maroon hover:bg-vaani-maroon hover:text-vaani-cream"
+                      }`}
+                    >
+                      {t.cta}
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                  </div>
+
+                  {/* Features */}
+                  <div className={`mt-auto border-t px-8 py-8 md:px-10 ${isMaroon ? "border-vaani-cream/15" : "border-vaani-gold-soft bg-vaani-cream/40"}`}>
+                    {t.plus && (
+                      <p className={`mb-4 font-mono text-[10px] uppercase tracking-widest ${isMaroon ? "text-vaani-gold" : "text-vaani-maroon"}`}>
+                        {t.plus}
+                      </p>
+                    )}
+                    <ul className="space-y-3">
+                      {t.features.map((f) => (
+                        <li key={f} className={`flex items-start gap-3 text-sm ${isMaroon ? "text-vaani-cream/90" : "text-vaani-ink"}`}>
+                          <span className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${isMaroon ? "bg-vaani-gold/25" : "bg-vaani-maroon/10"}`}>
+                            <Check className={`h-3 w-3 ${isMaroon ? "text-vaani-gold" : "text-vaani-maroon"}`} />
+                          </span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </Reveal>
             );
