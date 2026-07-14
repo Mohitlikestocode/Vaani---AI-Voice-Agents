@@ -1,100 +1,138 @@
 {
-  "theme": "light_only",
-  "design_archetype": "The Swiss Editorial (Light)",
-  "typography": {
-    "headings": "Cormorant Garamond (Serif, Elegant, High-End)",
-    "body": "Manrope (Clean, Geometric, Functional)",
-    "accent_mono": "JetBrains Mono (For small labels, numbers, tech-specs)",
-    "rules": [
-      "Use massive, tight-tracked headings (tracking-tighter).",
-      "No bold default for headings; use font-light or font-medium for a delicate editorial feel.",
-      "Numbers in manifesto should use massive display sizes (e.g., text-8xl or text-[10vw]).",
-      "Body text should be highly legible, slightly loose leading."
-    ]
+  "theme": "Light/Warm Theme (NO DARK THEME)",
+  "brand_identity": {
+    "concept": "Premium, culturally-rooted Indian AI voice-agent SaaS. Inspired by Sarvam.ai. Elegant, warm, spiritual minimalism combined with modern tech credibility.",
+    "logo_url": "https://customer-assets.emergentagent.com/job_voice-assistant-pro-43/artifacts/6dhgm9jo_Maroon%20Beige%20Flat%20Illustrative%20Indian%20Wedding%20Event%20Logo.png",
+    "primary_motif": "Concentric lotus-mandala outlines, subtle arcs, petal shapes. Used as large, rotating background elements (opacity 5-10%) and subtle structural dividers."
   },
   "colors": {
-    "background": "#F5F4F0",
-    "surface": "#FFFFFF",
-    "surface_alt": "#EBEAE4",
-    "text_primary": "#111111",
-    "text_secondary": "#555555",
-    "accent_primary": "#D94F36",
-    "accent_secondary": "#213A2C",
-    "border": "rgba(17, 17, 17, 0.1)"
-  },
-  "layouts": {
-    "hero": "Large kinetic hero with a signature on-load moment. Huge 'Cormorant Garamond' text revealing line-by-line via Framer Motion. Right side or overlay contains the 'Spice Garden' live voice chat demo mockup with a subtle 3D hover/parallax effect.",
-    "marquee": "Slow editorial marquee of text-based logos (Spice Garden, Glow Salon, etc.) using a clean serif or sans font, separated by elegant bullet points (•). Pale background with dark earthy text.",
-    "manifesto_chapters": "Numbered manifesto format for 'How it works'. Massive mono-spaced numbers (01, 02, 03) aligned left, content deep indented. Use sticky scroll effects for the chapter numbers.",
-    "use_cases": "Clipped frame product photography for each usecase (Restaurants, Salons, Clinics). Images treated deliberately with a spotlight effect or passe-partout border (padded wrappers). Expandable sample chats overlaying or adjacent to the images.",
-    "features_grid": "Asymmetric bento grid with delicate 1px borders (Swiss structure).",
-    "roi_calculator": "Cardless, pure layout form with massive typography. Custom interactive sliders modifying large dynamic revenue numbers in real-time.",
-    "pricing": "Clean vertical columns with distinct hierarchy. Monthly/6mo/Annual toggle. 'Pro' tier highlighted with a subtle 'Tracing Beam' or subtle inner glow.",
-    "footer": "Massive structural footer with massive 'VAANI' text at the bottom. Clean links."
-  },
-  "motion": {
-    "scrolling": "Lenis for smooth momentum scrolling (Mandatory).",
-    "hero_reveal": "Masked line-by-line reveal using framer-motion (y: 100% to 0, overflow-hidden wrapper, staggered children).",
-    "parallax": "Subtle parallax on use-case imagery and background elements using framer-motion useScroll and useTransform.",
-    "micro_interactions": "Buttons have hover scaling. Animated waveform/listening states in the voice demo (CSS scale-y keyframes)."
-  },
-  "image_urls": {
-    "restaurant_usecase": {
-      "url": "https://images.pexels.com/photos/5920775/pexels-photo-5920775.jpeg",
-      "description": "Smiling waiter/restaurant owner, for Restaurants & Cloud Kitchens usecase.",
-      "category": "use_cases"
+    "background": {
+      "default": "#FDFBF7",
+      "alt": "#F4EFE6",
+      "inverted": "#6E1A1A"
     },
-    "salon_usecase": {
-      "url": "https://images.pexels.com/photos/3993324/pexels-photo-3993324.jpeg",
-      "description": "Hairdresser in a modern salon, for Salons & Spas usecase.",
-      "category": "use_cases"
+    "primary": {
+      "default": "#6E1A1A",
+      "hover": "#541414",
+      "light": "#8C2626"
     },
-    "clinic_usecase": {
-      "url": "https://images.pexels.com/photos/33812025/pexels-photo-33812025.jpeg",
-      "description": "Modern clinic reception, for Clinics & Healthcare usecase.",
-      "category": "use_cases"
+    "secondary": {
+      "default": "#C5A059",
+      "hover": "#A88746",
+      "light": "#E8DCC4"
     },
-    "testimonial_avatar_1": {
-      "url": "https://images.pexels.com/photos/8068770/pexels-photo-8068770.jpeg",
-      "description": "Indian business owner, for Priya Nair or Rohan Mehta testimonial.",
-      "category": "social_proof"
+    "text": {
+      "main": "#2D1A1A",
+      "muted": "#6D5A5A",
+      "inverted": "#FDFBF7",
+      "inverted_muted": "#E8DCC4"
+    },
+    "border": {
+      "default": "#E8DCC4",
+      "maroon": "#6E1A1A",
+      "light": "#F4EFE6"
     }
   },
-  "components_needed": [
-    "AnimatedHeroText",
-    "VoiceDemoMockup",
-    "EditorialMarquee",
-    "ManifestoScroll",
-    "UseCaseCards",
-    "ROICalculator",
-    "PricingToggle",
-    "TestimonialGrid",
-    "SmoothScrollProvider"
+  "typography": {
+    "fonts": {
+      "heading": "'Cormorant Garamond', serif",
+      "body": "'Manrope', sans-serif"
+    },
+    "google_fonts_url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap",
+    "guidelines": [
+      "Use Cormorant Garamond for all H1, H2, H3 headings and large numerals. Tracking should be tight (tracking-tighter) for large sizes.",
+      "Use Manrope for body text, UI elements, buttons, and small labels. Keep it highly legible and clean.",
+      "Never center-align large blocks of text. Use left-alignment with generous padding.",
+      "Use 'Cormorant Garamond' in italics for subtle, elegant emphasis or quotes."
+    ]
+  },
+  "layouts": {
+    "spacing": "Generous. Use 2-3x normal padding (e.g., py-24, py-32 for sections) to give a luxurious, airy 'Sarvam.ai' feel.",
+    "grid": "Bento grids with 1px subtle borders (border-[#E8DCC4]) and large internal padding (p-8 to p-12).",
+    "borders": "Avoid heavy shadows. Use delicate 1px solid borders for definition, or very soft ambient shadows."
+  },
+  "motion": {
+    "libraries": ["framer-motion", "lenis"],
+    "guidelines": [
+      "Implement Lenis for smooth, premium momentum scrolling.",
+      "Kinetic Hero: Masked line-by-line reveal for the main H1 using framer-motion (e.g., initial { y: '100%' } animate { y: 0 } within an overflow-hidden wrapper).",
+      "3D/Parallax Moment: A large SVG lotus/mandala positioned absolutely in the hero background, rotating incredibly slowly (duration 60s+).",
+      "Use Case Cards: Hover interactions that expand or reveal a 'sample chat' interface smoothly."
+    ]
+  },
+  "visual_enhancers": {
+    "mandala_motif": "Use inline SVGs for mandala/lotus patterns. Style with stroke='#6E1A1A' and strokeWidth='1' or '0.5' at very low opacity (5-10%).",
+    "noise": "Optional: A highly subtle, fixed background SVG noise texture (opacity 2-3%) over the entire page to give it a printed, 'paper' feel.",
+    "buttons": "Pill-shaped (rounded-full). Primary buttons are Deep Maroon with Cream text. Hover states lift slightly (-translate-y-0.5) with a soft shadow."
+  },
+  "image_urls": {
+    "use_cases": {
+      "restaurant": "https://images.unsplash.com/photo-1622023133253-63706c9c3eb4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwzfHxpbmRpYW4lMjByZXN0YXVyYW50JTIwaW50ZXJpb3IlMjB3YXJtJTIwbGlnaHRpbmd8ZW58MHx8fHwxNzg0MDE5OTM5fDA&ixlib=rb-4.1.0&q=85",
+      "salon": "https://images.unsplash.com/photo-1722935408489-2bf93349c8cb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBzYWxvbiUyMGJlYXV0eSUyMHBhcmxvciUyMHNwYXxlbnwwfHx8fDE3ODQwMTk5Mzh8MA&ixlib=rb-4.1.0&q=85",
+      "clinic": "https://images.pexels.com/photos/19438563/pexels-photo-19438563.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "hotel": "https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBib3V0aXF1ZSUyMGhvdGVsJTIwbG9iYnklMjBsdXh1cnl8ZW58MHx8fHwxNzg0MDE5OTM4fDA&ixlib=rb-4.1.0&q=85"
+    },
+    "testimonials": {
+      "priya_nair": "https://images.unsplash.com/photo-1590650153855-d9e808231d41?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB3b21hbiUyMGJ1c2luZXNzJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzg0MDE5OTQ0fDA&ixlib=rb-4.1.0&q=85",
+      "rohan_mehta": "https://images.unsplash.com/photo-1647598378432-1aa8fa34f37f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTN8MHwxfHNlYXJjaHw0fHxpbmRpYW4lMjBidXNpbmVzcyUyMG93bmVyJTIwcG9ydHJhaXQlMjBmcmllbmRseXxlbnwwfHx8fDE3ODQwMTk5Mzh8MA&ixlib=rb-4.1.0&q=85",
+      "dr_anita_rao": "https://images.unsplash.com/photo-1573497019707-1c04de26e58c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw0fHxpbmRpYW4lMjB3b21hbiUyMGJ1c2luZXNzJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzg0MDE5OTQ0fDA&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "sections_guidance": [
+    {
+      "name": "Navbar",
+      "details": "Sticky, glassmorphism (bg-[#FDFBF7]/80 backdrop-blur-md). Display exact logo image on the left. Nav links in Manrope, secondary colors. Primary CTA in deep maroon."
+    },
+    {
+      "name": "Hero",
+      "details": "Massive typography 'Your business, always on call' in Cormorant Garamond. Use kinetic masked line-by-line reveal. Background features a slowly rotating, large, subtle (5% opacity) maroon mandala/lotus SVG. Add an 'Animated voice demo' UI element (minimalist waveform or chat pulse in maroon/brass)."
+    },
+    {
+      "name": "Logo Marquee",
+      "details": "Editorial typography for brand names (Spice Garden, Glow Salon, etc.). Slow, smooth scroll (using react-fast-marquee). Text color muted charcoal/maroon."
+    },
+    {
+      "name": "How It Works (Manifesto)",
+      "details": "Numbered chapters ('1. Describe', '2. Customize', '3. Go Live'). Use massive serif numerals (text-8xl) tightly cropped. Elegant editorial layout with thin dividing lines."
+    },
+    {
+      "name": "Use Cases",
+      "details": "Grid of cards. Each card uses culturally relevant photography (from image_urls). On hover, display an expandable sample chat overlay showing context-aware AI conversation."
+    },
+    {
+      "name": "Platform Features",
+      "details": "Bento grid focusing on 'context-aware', 'no hallucination', 'always-on', etc. Warm beige card backgrounds with maroon typography and subtle lotus SVG watermark accents."
+    },
+    {
+      "name": "Interactive ROI Calculator",
+      "details": "Functional sliders (calls/day, missed %, avg value) to calculate 'recovered revenue in ₹'. Use Radix/Shadcn sliders customized with maroon tracks and thumbs. Elegant numeral displays."
+    },
+    {
+      "name": "Pricing",
+      "details": "Three tiers: Free, Pro, Business. Highlight 'Pro' with a solid maroon background and cream text. Include a Monthly/Annual toggle."
+    },
+    {
+      "name": "Social Proof",
+      "details": "Testimonial cards with real Indian business owner portraits. Large serif quotation marks. High contrast text."
+    },
+    {
+      "name": "Footer (Inverted)",
+      "details": "Dark section! bg-[#6E1A1A] with text-[#FDFBF7]. Massive 'VAANI' serif wordmark. Large lotus watermark. Final CTA."
+    }
   ],
-  "accessibility": [
-    "Ensure contrast ratios for #555555 on #F5F4F0.",
-    "Add aria-labels to the interactive sliders and pricing toggles.",
-    "Include data-testid on all interactive and key informational elements."
-  ],
-  "instructions_to_main_agent": [
-    "Install dependencies: framer-motion, @studio-freight/react-lenis (or lenis), lucide-react, clsx, tailwind-merge.",
-    "Configure tailwind.config.js with the provided colors and font families (Cormorant Garamond, Manrope, JetBrains Mono). Add these fonts via Google Fonts in index.html.",
-    "DO NOT implement dark mode. The user explicitly requested 'NO DARK THEME'. Remove any dark mode classes or toggles.",
-    "Build the kinetic hero text reveal by splitting the H1 into lines, wrapping each in an overflow-hidden div, and animating the text upwards (y: 100% to 0) via framer-motion.",
-    "Implement the 'Voice Demo' mockup as an animated visual component. Use simple CSS animations (scaleY) to simulate a voice waveform.",
-    "The ROI Calculator must be fully functional. The formula is: (calls/day) * (missed% / 100) * (avg_value) * 30 days = Monthly Recovered Revenue. Example check: 80 * 0.28 * 450 * 30 = 302,400.",
-    "The pricing section must have an interactive billing toggle that dynamically updates the displayed prices.",
-    "Use 'clipped frames' for photography: wrap the image in a container with padding (e.g., p-4) and a 1px border to create an editorial passe-partout effect.",
-    "Do not use generic Shadcn cards for the main layout; use pure HTML/Tailwind to maintain the artistic 'Awwwards' feel with asymmetrical grids and deep spacing."
-  ],
+  "accessibility": {
+    "contrast": "Ensure all text meets WCAG AA standard. The charcoal maroon text (#2D1A1A) on cream background (#FDFBF7) provides excellent contrast.",
+    "testing": "All interactive elements MUST include data-testid attributes (e.g., data-testid='roi-slider', data-testid='pricing-toggle')."
+  },
   "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
-    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
-    "Don't make generic centered layouts, simplistic gradients, and uniform styling. Use grid-based asymmetry.",
-    "Create depth through layered design elements with z-index hierarchy.",
-    "Every interaction needs micro-animations - hover states, transitions, parallax effects.",
-    "Use 2-3x more spacing than feels comfortable (e.g., p-12, p-16, py-32). Cramped designs look cheap.",
-    "Subtle grain textures, noise overlays, and custom selection states separate good from extraordinary.",
-    "NEVER use placeholder AI emojis.",
-    "All interactive and key informational elements MUST include a data-testid attribute to facilitate robust automated testing."
-  ]
+    "You MUST strictly avoid generic 'SaaS Blue' or dark mode tropes. The site is a warm, well-lit, luxury editorial space.",
+    "Do NOT use HTML-based components for advanced interactions. Customise Shadcn components to match the brand identity (e.g., override rounded corners, border colors).",
+    "Do not apply global transitions like 'transition: all'. Apply specific transitions (opacity, transform) to avoid breaking framer-motion.",
+    "Use Phosphor Icons (thin or light weight) or Lucide (strokeWidth=1.5) for a refined look.",
+    "Do not center align text heavily. Favor left-alignment with structured, clean grids.",
+    "Build the mandala motif using an inline SVG with precise path/circle geometries, applying a slow rotation animation using Framer Motion."
+  ],
+  "component_instructions": {
+    "ui_components": "Use Shadcn primitives but deeply customize them via Tailwind classes to remove the 'Vercel' look. Sliders and toggles must use the maroon/gold palette."
+  }
 }
