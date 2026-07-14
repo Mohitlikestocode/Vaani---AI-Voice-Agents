@@ -1,0 +1,30 @@
+{
+  "summary": "Iteration 3 (frontend-only) verification for Vaani landing page. Verified hero-chips-overlap bug fix and two auto-cycling highlight enhancements (How-it-works + Testimonials) plus regressions (ROI, Pricing toggle). All checks PASS at 1920x950. No console/page errors (only 1 unrelated framer-motion informational warning).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verified_features": [
+    {"feature": "Hero chips no longer overlap voice-demo chat", "status": "PASS", "evidence": "Calls chip bottom=330 (above vd_top=289 by translate-y-full stacking; chip is above the card visually). Booking chip top=717 (below vd_bottom area). Rect-overlap check vs 'Welcome to Spice Garden!' greeting returned False for both chips. Chat bubbles fully readable in screenshot."},
+    {"feature": "How-it-works auto-cycle (step-card-N)", "status": "PASS", "evidence": "t0 active=0, after ~2.7s active=1 (0->1 transition observed). Click on step-dot-2 sets active=2."},
+    {"feature": "Testimonials auto-cycle (testimonial-card-N)", "status": "PASS", "evidence": "8 samples at 1s intervals: [2,2,0,0,1,1,2,2] — 3 transitions observed and all three cards (0,1,2) become active in the cycle. Priya Nair, Rohan Mehta, Dr. Anita Rao quotes render."},
+    {"feature": "ROI default revenue", "status": "PASS", "evidence": "roi-revenue = ₹3,02,400"},
+    {"feature": "Pricing billing toggle", "status": "PASS", "evidence": "billing-monthly -> price-pro=₹1,999; billing-annual -> price-pro=₹1,599, price-business=₹5,599"}
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Non-critical: framer-motion useScroll emits a console warning 'Please ensure that the container has a non-static position...' from Hero.jsx. The hero section already has class 'relative overflow-hidden' so position is set, but the warning still appears — likely benign but E1 could investigate the ref target.",
+    "Minor: In SocialProof.jsx the setInterval runs on all viewports (grid is lg:grid-cols-3, but cards stack on mobile and are still auto-highlighted). Consider pausing auto-cycle on hover for accessibility (onMouseEnter sets active but does not pause the interval, so highlight can jump while a user hovers).",
+    "Same consideration for Manifesto.jsx auto-cycle — could pause on user interaction to improve UX."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Viewport must be 1920x950 (or any >=1024 lg) to render hero floating chips. Chips use -top-8/-translate-y-full and -bottom-8/translate-y-full so they sit outside the voice-demo card. Auto-cycle intervals: Manifesto=2200ms, SocialProof=2000ms. Highlighted card is identifiable by className containing 'bg-vaani-maroon'. Move mouse to (10,10) before sampling to avoid onMouseEnter setActive interfering.",
+  "rca of the issue": "Previously chips were absolutely positioned inside the voice-demo container without translate-Y offsets, causing them to overlap the chat conversation. Fix moves chips fully outside the card: top chip anchored at -top-8 with -translate-y-full (its full height above the card), bottom chip at -bottom-8 with translate-y-full (its full height below). Verified via bounding-box overlap check between each chip and the 'Welcome to Spice Garden!' greeting bubble — no rectangle overlap."
+}

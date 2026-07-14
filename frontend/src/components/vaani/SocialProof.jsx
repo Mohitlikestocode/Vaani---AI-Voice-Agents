@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Reveal, Eyebrow } from "./motion";
 import { Star } from "lucide-react";
 
@@ -11,22 +13,23 @@ const stats = [
 const testimonials = [
   {
     quote:
-      "Set it up during a chai break. By dinner, Vaani had taken 30 reservation calls I'd have otherwise missed — in Malayalam and English both.",
+      "Set it up during a chai break. By dinner, Vaani had taken 30 reservation calls I'd have otherwise missed — in Malayalam and English both. It even remembers our specials and suggests them to callers without me lifting a finger.",
     name: "Priya Nair",
     role: "Owner · Spice Garden, Kochi",
     avatar:
       "https://images.unsplash.com/photo-1590650153855-d9e808231d41?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB3b21hbiUyMGJ1c2luZXNzJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzg0MDE5OTQ0fDA&ixlib=rb-4.1.0&q=85",
-    big: true,
   },
   {
-    quote: "Our front desk used to drown in 'what are your timings' calls. Vaani handles them all now.",
+    quote:
+      "Our front desk used to drown in 'what are your timings' and 'are you open today' calls all day long. Vaani handles every one of them now, books appointments, and even upsells our spa packages — so my staff finally focus on the client in the chair instead of the ringing phone.",
     name: "Rohan Mehta",
     role: "Manager · Glow Salon, Pune",
     avatar:
       "https://images.unsplash.com/photo-1647598378432-1aa8fa34f37f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTN8MHwxfHNlYXJjaHw0fHxpbmRpYW4lMjBidXNpbmVzcyUyMG93bmVyJTIwcG9ydHJhaXQlMjBmcmllbmRseXxlbnwwfHx8fDE3ODQwMTk5Mzh8MA&ixlib=rb-4.1.0&q=85",
   },
   {
-    quote: "It understands follow-up questions. Patients think they're texting a real receptionist.",
+    quote:
+      "It understands follow-up questions so naturally that patients genuinely think they're texting a real receptionist. It shares our timings, books slots and answers insurance queries in Kannada and English — our no-shows have dropped noticeably and the front desk is far calmer through the day.",
     name: "Dr. Anita Rao",
     role: "Sunrise Clinic · Bengaluru",
     avatar:
@@ -34,63 +37,93 @@ const testimonials = [
   },
 ];
 
-export const SocialProof = () => (
-  <section data-testid="social-proof" className="px-6 py-28 md:px-10 md:py-40">
-    <div className="mx-auto max-w-[1400px]">
-      <Reveal className="mb-16 max-w-2xl">
-        <Eyebrow>Loved across India</Eyebrow>
-        <h2 className="mt-5 font-serif text-5xl font-light leading-[1.02] tracking-tight text-vaani-ink md:text-7xl">
-          Real businesses. Real conversations.
-        </h2>
-      </Reveal>
+export const SocialProof = () => {
+  const [active, setActive] = useState(0);
 
-      <div className="mb-16 grid grid-cols-2 gap-px overflow-hidden rounded-[24px] border border-vaani-gold-soft bg-vaani-gold-soft md:grid-cols-4">
-        {stats.map((s) => (
-          <Reveal key={s.l}>
-            <div className="bg-vaani-white p-8 text-center md:p-10">
-              <p className="font-serif text-4xl font-light text-vaani-maroon md:text-5xl">{s.n}</p>
-              <p className="mt-2 text-sm text-vaani-muted">{s.l}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+  useEffect(() => {
+    const id = setInterval(() => setActive((a) => (a + 1) % testimonials.length), 2000);
+    return () => clearInterval(id);
+  }, []);
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        {testimonials.map((t, i) => (
-          <Reveal key={t.name} delay={i * 0.08} className={t.big ? "lg:row-span-2" : ""}>
-            <figure
-              className={`flex h-full flex-col justify-between rounded-[24px] border p-8 md:p-10 ${
-                t.big ? "border-vaani-maroon bg-vaani-maroon text-vaani-cream" : "border-vaani-gold-soft bg-vaani-white"
-              }`}
-            >
-              <div>
-                <span className={`font-serif text-6xl leading-none ${t.big ? "text-vaani-gold" : "text-vaani-maroon/25"}`}>
-                  &ldquo;
-                </span>
-                <blockquote
-                  className={`-mt-4 font-serif font-light leading-snug ${
-                    t.big ? "text-3xl md:text-4xl" : "text-xl text-vaani-ink"
-                  }`}
-                >
-                  {t.quote}
-                </blockquote>
-                <div className="mt-5 flex">
-                  {[...Array(5)].map((_, k) => (
-                    <Star key={k} className="h-4 w-4 fill-vaani-gold text-vaani-gold" />
-                  ))}
-                </div>
+  return (
+    <section data-testid="social-proof" className="px-6 py-28 md:px-10 md:py-40">
+      <div className="mx-auto max-w-[1400px]">
+        <Reveal className="mb-16 max-w-2xl">
+          <Eyebrow>Loved across India</Eyebrow>
+          <h2 className="mt-5 font-serif text-5xl font-light leading-[1.02] tracking-tight text-vaani-ink md:text-7xl">
+            Real businesses. Real conversations.
+          </h2>
+        </Reveal>
+
+        <div className="mb-16 grid grid-cols-2 gap-px overflow-hidden rounded-[24px] border border-vaani-gold-soft bg-vaani-gold-soft md:grid-cols-4">
+          {stats.map((s) => (
+            <Reveal key={s.l}>
+              <div className="bg-vaani-white p-8 text-center md:p-10">
+                <p className="font-serif text-4xl font-light text-vaani-maroon md:text-5xl">{s.n}</p>
+                <p className="mt-2 text-sm text-vaani-muted">{s.l}</p>
               </div>
-              <figcaption className="mt-8 flex items-center gap-3">
-                <img src={t.avatar} alt={t.name} className="h-12 w-12 rounded-full object-cover" />
-                <div>
-                  <p className={`font-medium ${t.big ? "" : "text-vaani-ink"}`}>{t.name}</p>
-                  <p className={`text-sm ${t.big ? "text-vaani-cream/60" : "text-vaani-muted"}`}>{t.role}</p>
-                </div>
-              </figcaption>
-            </figure>
-          </Reveal>
-        ))}
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="grid items-stretch gap-6 lg:grid-cols-3">
+          {testimonials.map((t, i) => {
+            const isActive = active === i;
+            return (
+              <Reveal key={t.name} delay={i * 0.08} className="h-full">
+                <motion.figure
+                  data-testid={`testimonial-card-${i}`}
+                  onMouseEnter={() => setActive(i)}
+                  animate={{ y: isActive ? -8 : 0 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className={`relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border p-8 md:p-10 ${
+                    isActive
+                      ? "border-vaani-maroon bg-vaani-maroon text-vaani-cream shadow-[0_35px_70px_-30px_rgba(110,26,26,0.6)]"
+                      : "border-vaani-gold-soft bg-vaani-white"
+                  }`}
+                  style={{ transitionProperty: "background-color, border-color, color" }}
+                >
+                  {isActive && (
+                    <motion.span
+                      key={`bar-${i}-${active}`}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 2, ease: "linear" }}
+                      className="absolute inset-x-0 top-0 h-1 origin-left bg-vaani-gold"
+                    />
+                  )}
+                  <div>
+                    <span className={`font-serif text-6xl leading-none ${isActive ? "text-vaani-gold" : "text-vaani-maroon/25"}`}>
+                      &ldquo;
+                    </span>
+                    <blockquote
+                      className={`-mt-4 font-serif text-2xl font-light leading-snug transition-colors duration-500 ${
+                        isActive ? "text-vaani-cream" : "text-vaani-ink"
+                      }`}
+                    >
+                      {t.quote}
+                    </blockquote>
+                    <div className="mt-5 flex">
+                      {[...Array(5)].map((_, k) => (
+                        <Star key={k} className="h-4 w-4 fill-vaani-gold text-vaani-gold" />
+                      ))}
+                    </div>
+                  </div>
+                  <figcaption className="mt-8 flex items-center gap-3">
+                    <img src={t.avatar} alt={t.name} className="h-12 w-12 rounded-full object-cover" />
+                    <div>
+                      <p className={`font-medium ${isActive ? "" : "text-vaani-ink"}`}>{t.name}</p>
+                      <p className={`text-sm transition-colors duration-500 ${isActive ? "text-vaani-cream/60" : "text-vaani-muted"}`}>
+                        {t.role}
+                      </p>
+                    </div>
+                  </figcaption>
+                </motion.figure>
+              </Reveal>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
