@@ -22,11 +22,7 @@ const steps = [
 ];
 
 export const Manifesto = () => (
-  <section
-    id="how-it-works"
-    data-testid="how-it-works"
-    className="px-6 py-28 md:px-10 md:py-40"
-  >
+  <section id="how-it-works" data-testid="how-it-works" className="px-6 py-28 md:px-10 md:py-40">
     <div className="mx-auto max-w-[1400px]">
       <Reveal className="mb-20 max-w-2xl">
         <Eyebrow>How it works</Eyebrow>
@@ -38,24 +34,22 @@ export const Manifesto = () => (
       <div className="flex flex-col">
         {steps.map((s, i) => (
           <Reveal key={s.n} delay={i * 0.05}>
-            <div className="grid grid-cols-1 gap-6 border-t border-vaani-ink/10 py-12 md:grid-cols-[0.4fr_0.6fr] md:gap-16 md:py-16">
+            <div className="grid grid-cols-1 gap-6 border-t border-vaani-gold-soft py-12 md:grid-cols-[0.4fr_0.6fr] md:gap-16 md:py-16">
               <div className="flex items-baseline gap-6">
-                <span className="font-mono text-6xl font-light text-vaani-terracotta md:text-8xl">
+                <span className="font-serif text-7xl font-light text-vaani-gold md:text-[7rem] md:leading-none">
                   {s.n}
                 </span>
-                <h3 className="font-serif text-4xl font-light text-vaani-ink md:text-5xl">
+                <h3 className="font-serif text-4xl font-light text-vaani-maroon md:text-5xl">
                   {s.title}
                 </h3>
               </div>
               <div className="md:pt-4">
-                <p className="max-w-xl text-lg leading-relaxed text-vaani-muted">
-                  {s.body}
-                </p>
+                <p className="max-w-xl text-lg leading-relaxed text-vaani-muted">{s.body}</p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   {s.detail.map((d) => (
                     <span
                       key={d}
-                      className="rounded-full border border-vaani-ink/15 bg-vaani-surface px-4 py-1.5 font-mono text-xs text-vaani-ink"
+                      className="rounded-full border border-vaani-gold-soft bg-vaani-white px-4 py-1.5 font-mono text-xs text-vaani-ink"
                     >
                       {d}
                     </span>

@@ -14,7 +14,7 @@ import { FinalCTA, Footer } from "@/components/vaani/FinalCTA";
 export default function Landing() {
   return (
     <SmoothScroll>
-      <div data-testid="landing-page" className="min-h-screen bg-vaani-bg font-sans text-vaani-ink">
+      <div data-testid="landing-page" className="min-h-screen bg-vaani-cream font-sans text-vaani-ink">
         <Navbar />
         <main>
           <Hero />

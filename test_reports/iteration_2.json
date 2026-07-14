@@ -1,0 +1,34 @@
+{
+  "summary": "Frontend regression testing of Vaani landing page after brand redesign (maroon/cream/gold). All 21+ regression checks pass: landing page loads, every required data-testid renders, ROI calculator defaults match (₹3,02,400 / 22 / 672), sliders update via keyboard, Pricing toggle recalculates correctly for monthly/sixmo/annual (Free ₹0, Pro 1999/1799/1599, Business 6999/6299/5599), use-cases accordion expands & collapses, voice demo + voice-demo-sunrise render, Final CTA and footer links present. Zero console errors and zero page errors. Mandala SVG renders without crash.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "VoiceDemo useEffect has empty dep array while referencing `script` prop — if a parent ever passes a different script, timers wouldn't resync. Not a bug in current usage but worth `script` in deps.",
+    "Mandala renders many rotating <path> elements (~56) and is instantiated 3 times on page (ROI card, FinalCTA, Footer) each spinning with framer-motion — acceptable for a landing page but keep an eye on low-end mobile CPU.",
+    "SmoothScroll (Lenis) is applied globally; anchor nav uses href='#...' — verified working via native anchor navigation, but programmatic scrollIntoView will be intercepted (as noted). No code change needed."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "100%"},
+  "test_credentials": "None required",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 2 redesign verified. Base URL: https://voice-assistant-pro-43.preview.emergentagent.com. Use data-testids listed in request. ROI defaults calls=80/value=450/missed=28 => revenue=₹3,02,400, calls-day=22, recovered=672. Slider is a Radix Slider — focus [role=slider] then use ArrowRight to increment. Billing IDs are billing-monthly / billing-sixmo / billing-annual (not billing-yearly).",
+  "test_evidence": {
+    "roi_default_revenue": "₹3,02,400",
+    "roi_default_calls_day": "22",
+    "roi_default_recovered": "672",
+    "roi_after_2x_arrowright_on_calls": "₹3,40,200 (changed as expected)",
+    "pricing_monthly": {"free": "₹0", "pro": "₹1,999", "business": "₹6,999"},
+    "pricing_sixmo": {"free": "₹0", "pro": "₹1,799", "business": "₹6,299"},
+    "pricing_annual": {"free": "₹0", "pro": "₹1,599", "business": "₹5,599"},
+    "console_errors": 0,
+    "page_errors": 0
+  }
+}

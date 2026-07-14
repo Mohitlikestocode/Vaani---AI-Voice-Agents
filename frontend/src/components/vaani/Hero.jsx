@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Play, Star } from "lucide-react";
 import { MaskLine } from "./motion";
 import { VoiceDemo } from "./VoiceDemo";
+import { Mandala } from "./Mandala";
 
 export const Hero = () => {
   const ref = useRef(null);
@@ -10,9 +11,10 @@ export const Hero = () => {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const demoY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const demoY = useTransform(scrollYProgress, [0, 1], [0, -70]);
   const demoRotate = useTransform(scrollYProgress, [0, 1], [0, -3]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const mandalaScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   return (
     <section
@@ -21,18 +23,29 @@ export const Hero = () => {
       data-testid="hero"
       className="relative overflow-hidden px-6 pb-24 pt-36 md:px-10 md:pt-44"
     >
-      <div className="mx-auto grid max-w-[1400px] items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
+      {/* Rotating mandala motif */}
+      <motion.div
+        style={{ scale: mandalaScale }}
+        className="pointer-events-none absolute -right-[18%] top-[6%] z-0 hidden h-[900px] w-[900px] opacity-[0.06] md:block"
+      >
+        <Mandala color="#6E1A1A" strokeWidth={1.2} duration={120} className="h-full w-full" />
+      </motion.div>
+      <div className="pointer-events-none absolute -left-[22%] bottom-[-30%] z-0 h-[600px] w-[600px] opacity-[0.05]">
+        <Mandala color="#C5A059" strokeWidth={1.5} duration={100} reverse className="h-full w-full" />
+      </div>
+
+      <div className="relative z-10 mx-auto grid max-w-[1400px] items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
         {/* Left: kinetic copy */}
         <motion.div style={{ y: textY }} className="relative z-10">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1, duration: 0.8 }}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-vaani-ink/15 bg-vaani-surface/60 px-4 py-1.5 backdrop-blur"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-vaani-gold-soft bg-vaani-white/70 px-4 py-1.5 backdrop-blur"
           >
             <span className="flex">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-3 w-3 fill-vaani-terracotta text-vaani-terracotta" />
+                <Star key={i} className="h-3 w-3 fill-vaani-gold text-vaani-gold" />
               ))}
             </span>
             <span className="font-mono text-[11px] uppercase tracking-widest text-vaani-muted">
@@ -40,9 +53,13 @@ export const Hero = () => {
             </span>
           </motion.div>
 
-          <h1 className="font-serif text-[15vw] font-light leading-[0.92] tracking-tight text-vaani-ink sm:text-7xl lg:text-[6.5rem]">
+          <p className="mb-4 font-serif text-2xl italic text-vaani-maroon/70">
+            वाणी — the voice of your business
+          </p>
+
+          <h1 className="font-serif text-[15vw] font-light leading-[0.9] tracking-tight text-vaani-ink sm:text-7xl lg:text-[6.5rem]">
             <MaskLine delay={0.15}>Your business,</MaskLine>
-            <MaskLine delay={0.3} className="italic text-vaani-terracotta">
+            <MaskLine delay={0.3} className="italic text-vaani-maroon">
               always on call
             </MaskLine>
           </h1>
@@ -67,7 +84,7 @@ export const Hero = () => {
             <a
               href="#pricing"
               data-testid="hero-primary-cta"
-              className="group flex items-center gap-2 rounded-full bg-vaani-ink px-7 py-4 text-sm font-medium text-vaani-bg transition-transform duration-300 hover:scale-[1.03]"
+              className="group flex items-center gap-2 rounded-full bg-vaani-maroon px-7 py-4 text-sm font-medium text-vaani-cream transition-all duration-300 hover:bg-vaani-maroon-dark hover:-translate-y-0.5"
             >
               Create your agent — free
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -75,9 +92,9 @@ export const Hero = () => {
             <a
               href="#see-it"
               data-testid="hero-secondary-cta"
-              className="group flex items-center gap-2 rounded-full border border-vaani-ink/20 px-6 py-4 text-sm text-vaani-ink transition-colors hover:border-vaani-ink"
+              className="group flex items-center gap-2 rounded-full border border-vaani-maroon/25 px-6 py-4 text-sm text-vaani-maroon transition-colors hover:border-vaani-maroon hover:bg-vaani-maroon/5"
             >
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-vaani-terracotta text-vaani-bg">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-vaani-maroon text-vaani-cream">
                 <Play className="h-3 w-3 fill-current" />
               </span>
               See it in action
@@ -100,25 +117,24 @@ export const Hero = () => {
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-0"
+          className="relative z-10"
         >
-          {/* floating stat chips */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="absolute -left-4 top-10 z-20 hidden rounded-2xl border border-vaani-ink/10 bg-vaani-surface px-4 py-3 shadow-lg md:block"
+            className="absolute -left-4 top-8 z-20 hidden rounded-2xl border border-vaani-gold-soft bg-vaani-white px-4 py-3 shadow-lg md:block"
           >
             <p className="font-mono text-[10px] uppercase tracking-wider text-vaani-muted">
               Calls handled this week
             </p>
-            <p className="font-serif text-2xl text-vaani-ink">1,248</p>
+            <p className="font-serif text-2xl text-vaani-maroon">1,248</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.25, duration: 0.8 }}
-            className="absolute -right-3 bottom-16 z-20 hidden rounded-2xl border border-vaani-ink/10 bg-vaani-forest px-4 py-3 text-vaani-bg shadow-lg md:block"
+            className="absolute -right-3 bottom-14 z-20 hidden rounded-2xl bg-vaani-maroon px-4 py-3 text-vaani-cream shadow-lg md:block"
           >
             <p className="font-mono text-[10px] uppercase tracking-wider opacity-70">
               New booking confirmed

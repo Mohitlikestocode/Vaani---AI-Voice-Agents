@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mic, Lock } from "lucide-react";
 
-export const Waveform = ({ bars = 28, active = true, color = "#D94F36" }) => (
+export const Waveform = ({ bars = 28, active = true, color = "#6E1A1A" }) => (
   <div className="flex h-8 items-center gap-[3px]">
     {Array.from({ length: bars }).map((_, i) => (
       <span
@@ -51,19 +51,12 @@ export const VoiceDemo = ({
       let t = 600;
       script.forEach((msg, idx) => {
         if (msg.from === "user") {
-          timers.current.push(
-            setTimeout(() => setListening(true), t - 500)
-          );
-          timers.current.push(
-            setTimeout(() => setListening(false), t)
-          );
+          timers.current.push(setTimeout(() => setListening(true), t - 500));
+          timers.current.push(setTimeout(() => setListening(false), t));
         }
-        timers.current.push(
-          setTimeout(() => setVisible((v) => [...v, idx]), t)
-        );
+        timers.current.push(setTimeout(() => setVisible((v) => [...v, idx]), t));
         t += 1400 + msg.text.length * 12;
       });
-      // restart loop
       timers.current.push(setTimeout(run, t + 2200));
     };
     run();
@@ -73,21 +66,21 @@ export const VoiceDemo = ({
   return (
     <div
       data-testid={testId}
-      className="w-full overflow-hidden rounded-[28px] border border-vaani-ink/10 bg-vaani-surface shadow-[0_30px_80px_-20px_rgba(17,17,17,0.25)]"
+      className="w-full overflow-hidden rounded-[28px] border border-vaani-gold-soft bg-vaani-white shadow-[0_40px_90px_-30px_rgba(110,26,26,0.35)]"
     >
       {/* browser chrome */}
-      <div className="flex items-center gap-2 border-b border-vaani-ink/10 bg-vaani-alt/50 px-5 py-3">
+      <div className="flex items-center gap-2 border-b border-vaani-gold-soft bg-vaani-sand px-5 py-3">
         <Lock className="h-3.5 w-3.5 text-vaani-muted" />
         <span className="font-mono text-xs text-vaani-muted">{url}</span>
-        <span className="ml-auto flex items-center gap-1.5 rounded-full bg-vaani-forest/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-vaani-forest">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-vaani-forest" />
+        <span className="ml-auto flex items-center gap-1.5 rounded-full bg-vaani-maroon/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-vaani-maroon">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-vaani-maroon" />
           Live
         </span>
       </div>
 
       {/* header */}
       <div className="flex items-center gap-3 px-6 pt-6">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-vaani-terracotta font-serif text-xl text-vaani-bg">
+        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-vaani-maroon font-serif text-xl text-vaani-cream">
           {initial}
         </div>
         <div>
@@ -113,8 +106,8 @@ export const VoiceDemo = ({
                 <div
                   className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.from === "user"
-                      ? "rounded-br-sm bg-vaani-ink text-vaani-bg"
-                      : "rounded-bl-sm bg-vaani-alt text-vaani-ink"
+                      ? "rounded-br-sm bg-vaani-maroon text-vaani-cream"
+                      : "rounded-bl-sm bg-vaani-sand text-vaani-ink"
                   }`}
                 >
                   {msg.text}
@@ -126,10 +119,10 @@ export const VoiceDemo = ({
       </div>
 
       {/* input / listening bar */}
-      <div className="flex items-center gap-3 border-t border-vaani-ink/10 px-6 py-4">
+      <div className="flex items-center gap-3 border-t border-vaani-gold-soft px-6 py-4">
         <div
           className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors ${
-            listening ? "bg-vaani-terracotta text-vaani-bg" : "bg-vaani-alt text-vaani-muted"
+            listening ? "bg-vaani-maroon text-vaani-cream" : "bg-vaani-sand text-vaani-muted"
           }`}
         >
           <Mic className="h-5 w-5" />
@@ -137,7 +130,7 @@ export const VoiceDemo = ({
         {listening ? (
           <div className="flex flex-1 items-center gap-3">
             <Waveform active bars={22} />
-            <span className="font-mono text-xs text-vaani-terracotta">Listening…</span>
+            <span className="font-mono text-xs text-vaani-maroon">Listening…</span>
           </div>
         ) : (
           <span className="flex-1 text-sm text-vaani-muted">Tap to speak…</span>

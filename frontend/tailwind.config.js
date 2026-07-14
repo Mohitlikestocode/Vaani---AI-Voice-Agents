@@ -19,13 +19,20 @@ module.exports = {
       },
       colors: {
         vaani: {
-          bg: '#F5F4F0',
-          surface: '#FFFFFF',
-          alt: '#EBEAE4',
-          ink: '#111111',
-          muted: '#555555',
-          terracotta: '#D94F36',
-          forest: '#213A2C',
+          cream: '#FDFBF7',
+          sand: '#F4EFE6',
+          white: '#FFFFFF',
+          maroon: {
+            DEFAULT: '#6E1A1A',
+            dark: '#541414',
+            light: '#8C2626',
+          },
+          gold: {
+            DEFAULT: '#C5A059',
+            soft: '#E8DCC4',
+          },
+          ink: '#2D1A1A',
+          muted: '#6D5A5A',
         },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

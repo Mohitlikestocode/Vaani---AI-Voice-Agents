@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Reveal, Eyebrow } from "./motion";
+import { Mandala } from "./Mandala";
 
-const inr = (n) =>
-  "₹" + Math.round(n).toLocaleString("en-IN");
+const inr = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
 
 export const ROICalculator = () => {
   const [calls, setCalls] = useState(80);
@@ -17,36 +17,9 @@ export const ROICalculator = () => {
   const revenue = missedPerDay * value * 30;
 
   const controls = [
-    {
-      id: "calls",
-      label: "Calls received per day",
-      value: calls,
-      display: `${calls} calls / day`,
-      min: 10,
-      max: 500,
-      step: 5,
-      set: setCalls,
-    },
-    {
-      id: "value",
-      label: "Average order / booking value",
-      value: value,
-      display: inr(value),
-      min: 50,
-      max: 5000,
-      step: 50,
-      set: setValue,
-    },
-    {
-      id: "missed",
-      label: "Calls you miss today",
-      value: missed,
-      display: `${missed}% missed`,
-      min: 5,
-      max: 60,
-      step: 1,
-      set: setMissed,
-    },
+    { id: "calls", label: "Calls received per day", value: calls, display: `${calls} calls / day`, min: 10, max: 500, step: 5, set: setCalls },
+    { id: "value", label: "Average order / booking value", value: value, display: inr(value), min: 50, max: 5000, step: 50, set: setValue },
+    { id: "missed", label: "Calls you miss today", value: missed, display: `${missed}% missed`, min: 5, max: 60, step: 1, set: setMissed },
   ];
 
   return (
@@ -64,13 +37,12 @@ export const ROICalculator = () => {
         </Reveal>
 
         <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
-          {/* Sliders */}
           <Reveal className="space-y-12">
             {controls.map((c) => (
               <div key={c.id}>
                 <div className="mb-4 flex items-end justify-between">
                   <label className="text-sm text-vaani-muted">{c.label}</label>
-                  <span className="font-mono text-lg text-vaani-ink">{c.display}</span>
+                  <span className="font-serif text-2xl text-vaani-maroon">{c.display}</span>
                 </div>
                 <Slider
                   data-testid={`roi-slider-${c.id}`}
@@ -80,55 +52,57 @@ export const ROICalculator = () => {
                   max={c.max}
                   step={c.step}
                   onValueChange={(v) => c.set(v[0])}
-                  className="[&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-vaani-terracotta"
+                  className="[&_[role=slider]]:h-5 [&_[role=slider]]:w-5"
                 />
               </div>
             ))}
           </Reveal>
 
-          {/* Result */}
           <Reveal delay={0.1}>
-            <div className="rounded-[28px] bg-vaani-forest p-10 text-vaani-bg md:p-14">
-              <p className="font-mono text-xs uppercase tracking-widest text-vaani-bg/60">
-                Recovered every month
-              </p>
-              <motion.p
-                key={Math.round(revenue)}
-                initial={{ opacity: 0.4, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                data-testid="roi-revenue"
-                className="mt-3 font-serif text-6xl font-light leading-none tracking-tight md:text-8xl"
-              >
-                {inr(revenue)}
-              </motion.p>
-              <p className="mt-4 text-vaani-bg/70">
-                in revenue Vaani would have saved you.
-              </p>
-
-              <div className="mt-10 grid grid-cols-2 gap-6 border-t border-vaani-bg/15 pt-8">
-                <div>
-                  <p className="font-serif text-4xl font-light" data-testid="roi-calls-day">
-                    {Math.round(missedPerDay)}
-                  </p>
-                  <p className="mt-1 text-sm text-vaani-bg/60">calls/day answered, not missed</p>
-                </div>
-                <div>
-                  <p className="font-serif text-4xl font-light" data-testid="roi-recovered">
-                    {Math.round(recoveredPerMonth)}
-                  </p>
-                  <p className="mt-1 text-sm text-vaani-bg/60">calls recovered / month</p>
-                </div>
+            <div className="relative overflow-hidden rounded-[28px] bg-vaani-maroon p-10 text-vaani-cream md:p-14">
+              <div className="pointer-events-none absolute -bottom-24 -right-24 h-80 w-80 opacity-[0.08]">
+                <Mandala color="#E8DCC4" duration={130} className="h-full w-full" />
               </div>
+              <div className="relative z-10">
+                <p className="font-mono text-xs uppercase tracking-widest text-vaani-cream/60">
+                  Recovered every month
+                </p>
+                <motion.p
+                  key={Math.round(revenue)}
+                  initial={{ opacity: 0.4, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  data-testid="roi-revenue"
+                  className="mt-3 font-serif text-6xl font-light leading-none tracking-tight md:text-8xl"
+                >
+                  {inr(revenue)}
+                </motion.p>
+                <p className="mt-4 text-vaani-cream/70">in revenue Vaani would have saved you.</p>
 
-              <a
-                href="#pricing"
-                data-testid="roi-cta"
-                className="group mt-10 inline-flex items-center gap-2 rounded-full bg-vaani-bg px-7 py-4 text-sm font-medium text-vaani-forest transition-transform duration-300 hover:scale-[1.03]"
-              >
-                Start saving with Vaani
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
+                <div className="mt-10 grid grid-cols-2 gap-6 border-t border-vaani-cream/15 pt-8">
+                  <div>
+                    <p className="font-serif text-4xl font-light text-vaani-gold" data-testid="roi-calls-day">
+                      {Math.round(missedPerDay)}
+                    </p>
+                    <p className="mt-1 text-sm text-vaani-cream/60">calls/day answered, not missed</p>
+                  </div>
+                  <div>
+                    <p className="font-serif text-4xl font-light text-vaani-gold" data-testid="roi-recovered">
+                      {Math.round(recoveredPerMonth)}
+                    </p>
+                    <p className="mt-1 text-sm text-vaani-cream/60">calls recovered / month</p>
+                  </div>
+                </div>
+
+                <a
+                  href="#pricing"
+                  data-testid="roi-cta"
+                  className="group mt-10 inline-flex items-center gap-2 rounded-full bg-vaani-cream px-7 py-4 text-sm font-medium text-vaani-maroon transition-transform duration-300 hover:-translate-y-0.5"
+                >
+                  Start saving with Vaani
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </div>
             </div>
           </Reveal>
         </div>

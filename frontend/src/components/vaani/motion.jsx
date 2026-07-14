@@ -16,7 +16,7 @@ export const Reveal = ({ children, delay = 0, y = 40, className = "", ...props }
 
 // Masked line reveal (each line wrapped in overflow-hidden)
 export const MaskLine = ({ children, delay = 0, className = "" }) => (
-  <span className="block overflow-hidden">
+  <span className="block overflow-hidden py-[0.05em]">
     <motion.span
       className={`block ${className}`}
       initial={{ y: "110%" }}
@@ -28,11 +28,14 @@ export const MaskLine = ({ children, delay = 0, className = "" }) => (
   </span>
 );
 
-// Eyebrow / section label
-export const Eyebrow = ({ children, className = "" }) => (
+// Eyebrow / section label with mandala tick
+export const Eyebrow = ({ children, className = "", light = false }) => (
   <span
-    className={`font-mono text-[11px] uppercase tracking-[0.25em] text-vaani-terracotta ${className}`}
+    className={`inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.28em] ${
+      light ? "text-vaani-gold" : "text-vaani-maroon"
+    } ${className}`}
   >
+    <span className={`h-px w-6 ${light ? "bg-vaani-gold" : "bg-vaani-maroon"}`} />
     {children}
   </span>
 );
