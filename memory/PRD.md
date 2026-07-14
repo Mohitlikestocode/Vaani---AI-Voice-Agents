@@ -27,3 +27,10 @@ Build an award-worthy (Awwwards-level) marketing landing page for Vaani, an AI v
 - P0: Auth (JWT or Emergent Google login) + Get Started flow.
 - P1: Agent creation wizard (Describe → Customize → Go live), dashboard, analytics.
 - P2: Real voice agent (LLM + TTS/STT), multi-language, embed widget, lead-capture backend.
+
+## Update — Brand Redesign (2026)
+- Full art-direction realign to new logo (cream lotus-mandala on deep maroon), Sarvam.ai-inspired warm Indian luxury. Light/warm theme.
+- Palette: cream #FDFBF7, maroon #6E1A1A (+dark/light), gold #C5A059 / soft #E8DCC4, ink #2D1A1A. Fonts unchanged (Cormorant Garamond + Manrope).
+- Added reusable Mandala SVG motif (slow-rotating watermarks in hero, features, ROI card, CTA, footer). Logo image used in navbar/CTA/footer. Devanagari "वाणी" hero accent.
+- Slider themed via --primary=maroon HSL. Maroon inverted bands: See-it-in-action, Features embed tile, ROI result card, Pro pricing card, big testimonial, footer.
+- Verified: iteration_2.json 100% frontend pass, 0 console errors. ROI ₹3,02,400 & pricing toggle intact.
