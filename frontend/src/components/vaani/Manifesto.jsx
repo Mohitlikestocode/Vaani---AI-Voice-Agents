@@ -70,7 +70,6 @@ export const Manifesto = () => {
               <Reveal key={s.n} delay={i * 0.1}>
                 <motion.div
                   data-testid={`step-card-${i}`}
-                  onMouseEnter={() => setActive(i)}
                   animate={{ y: isActive ? -8 : 0 }}
                   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className={`relative flex h-full flex-col overflow-hidden rounded-[24px] border p-8 md:p-10 ${

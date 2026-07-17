@@ -73,7 +73,6 @@ export const SocialProof = () => {
               <Reveal key={t.name} delay={i * 0.08} className="h-full">
                 <motion.figure
                   data-testid={`testimonial-card-${i}`}
-                  onMouseEnter={() => setActive(i)}
                   animate={{ y: isActive ? -8 : 0 }}
                   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className={`relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border p-8 md:p-10 ${

@@ -1,0 +1,23 @@
+{
+  "summary": "Iteration 7 frontend-only regression for the hover-hijack bug fix. Verified that hovering non-active step/testimonial cards no longer changes the auto-highlighted card, the ~5s auto-cycle continues to advance both sections (1->2->0 sampled over ~11s), the new brand logo <img> renders (naturalWidth=1492), and prior regressions (use-cases image swap across 5 tabs, pricing annual price-pro = INR 1,599, ROI roi-revenue = INR 3,02,400) still work. No console errors and no page errors (only a benign framer-motion positioning warning).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iter7_final.png"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Manifesto.jsx and SocialProof.jsx now have identical auto-cycle pattern (useState+useEffect+setInterval 5000ms) with no onMouseEnter; consider extracting a small useAutoCycle(len, interval) hook to DRY-up.",
+    "Console shows a framer-motion warning: 'Please ensure that the container has a non-static position, like relative/fixed/absolute...' — non-blocking, but worth investigating for scroll offset accuracy in a Reveal/parent wrapper."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "100%"},
+  "test_credentials": "N/A",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 7 verified the hover-hijack fix on both how-it-works (step-card-0/1/2) and social-proof (testimonial-card-0/1/2). Active card is identified by class containing 'bg-vaani-ink'. During test: initial step active=0; hovered step-card-1 for 1.2s -> still 0 (PASS). Initial testimonial active=1; hovered testimonial-card-2 for 1.2s -> still 1 (PASS). Auto-cycle over 5.5s advanced step 1->2 and testimonial 1->2; another 5.5s -> both 2->0. Logo img loads from https://customer-assets.emergentagent.com/.../qtjnkbed_image.png (naturalWidth=1492). Regressions: 5/5 unique use-case images across usecase-tab-0..4, price-pro annual='INR 1,599', roi-revenue='INR 3,02,400'. All primary + regression assertions passed.",
+  "rca of the issue": "Previous bug: onMouseEnter={() => setActive(i)} handlers on step-card and testimonial-card motion elements caused any mouseover on a card to force it active, hijacking the 5s auto-cycle. Fix (already applied by main agent): removed onMouseEnter from Manifesto.jsx (step-cards) and SocialProof.jsx (testimonial-cards). Only the interval timer (setInterval 5000ms) and step-dot onClick control active state now. Verified with mouse.move over non-active cards; active index did not change."
+}
