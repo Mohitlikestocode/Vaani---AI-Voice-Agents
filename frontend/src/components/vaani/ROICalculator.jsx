@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Reveal, Eyebrow } from "./motion";
-import { Mandala } from "./Mandala";
+import { SoundWave } from "./SoundWave";
 
 const inr = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
 
@@ -42,7 +42,7 @@ export const ROICalculator = () => {
               <div key={c.id}>
                 <div className="mb-4 flex items-end justify-between">
                   <label className="text-sm text-vaani-muted">{c.label}</label>
-                  <span className="font-serif text-2xl text-vaani-maroon">{c.display}</span>
+                  <span className="font-mono text-2xl font-semibold text-vaani-ink">{c.display}</span>
                 </div>
                 <Slider
                   data-testid={`roi-slider-${c.id}`}
@@ -59,12 +59,11 @@ export const ROICalculator = () => {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="relative overflow-hidden rounded-[28px] bg-vaani-maroon p-10 text-vaani-cream md:p-14">
-              <div className="pointer-events-none absolute -bottom-24 -right-24 h-80 w-80 opacity-[0.08]">
-                <Mandala color="#E8DCC4" duration={130} className="h-full w-full" />
-              </div>
+            <div className="relative overflow-hidden rounded-[28px] bg-vaani-ink p-10 text-white md:p-14">
+              <div className="vaani-grid pointer-events-none absolute inset-0 opacity-[0.06]" />
+              <SoundWave className="pointer-events-none absolute inset-x-0 bottom-0 h-24" bars={44} color="#0055FF" opacity={0.14} />
               <div className="relative z-10">
-                <p className="font-mono text-xs uppercase tracking-widest text-vaani-cream/60">
+                <p className="font-mono text-xs uppercase tracking-widest text-white/60">
                   Recovered every month
                 </p>
                 <motion.p
@@ -73,31 +72,31 @@ export const ROICalculator = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                   data-testid="roi-revenue"
-                  className="mt-3 font-serif text-6xl font-light leading-none tracking-tight md:text-8xl"
+                  className="mt-3 font-display text-6xl font-semibold leading-none tracking-tight md:text-8xl"
                 >
                   {inr(revenue)}
                 </motion.p>
-                <p className="mt-4 text-vaani-cream/70">in revenue Vaani would have saved you.</p>
+                <p className="mt-4 text-white/70">in revenue Vaani would have saved you.</p>
 
-                <div className="mt-10 grid grid-cols-2 gap-6 border-t border-vaani-cream/15 pt-8">
+                <div className="mt-10 grid grid-cols-2 gap-6 border-t border-white/15 pt-8">
                   <div>
-                    <p className="font-serif text-4xl font-light text-vaani-gold" data-testid="roi-calls-day">
+                    <p className="font-display text-4xl font-semibold text-vaani-gold" data-testid="roi-calls-day">
                       {Math.round(missedPerDay)}
                     </p>
-                    <p className="mt-1 text-sm text-vaani-cream/60">calls/day answered, not missed</p>
+                    <p className="mt-1 text-sm text-white/60">calls/day answered, not missed</p>
                   </div>
                   <div>
-                    <p className="font-serif text-4xl font-light text-vaani-gold" data-testid="roi-recovered">
+                    <p className="font-display text-4xl font-semibold text-vaani-gold" data-testid="roi-recovered">
                       {Math.round(recoveredPerMonth)}
                     </p>
-                    <p className="mt-1 text-sm text-vaani-cream/60">calls recovered / month</p>
+                    <p className="mt-1 text-sm text-white/60">calls recovered / month</p>
                   </div>
                 </div>
 
                 <a
                   href="#pricing"
                   data-testid="roi-cta"
-                  className="group mt-10 inline-flex items-center gap-2 rounded-full bg-vaani-cream px-7 py-4 text-sm font-medium text-vaani-maroon transition-transform duration-300 hover:-translate-y-0.5"
+                  className="group mt-10 inline-flex items-center gap-2 rounded-full bg-vaani-gold px-7 py-4 text-sm font-medium text-white transition-transform duration-300 hover:-translate-y-0.5"
                 >
                   Start saving with Vaani
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

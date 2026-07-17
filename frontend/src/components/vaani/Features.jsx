@@ -1,5 +1,5 @@
 import { Reveal, Eyebrow } from "./motion";
-import { Mandala } from "./Mandala";
+import { SoundWave } from "./SoundWave";
 import {
   MessagesSquare,
   Database,
@@ -17,7 +17,7 @@ export const Features = () => (
     <div className="mx-auto max-w-[1400px]">
       <Reveal className="mb-16 max-w-2xl">
         <Eyebrow>Platform</Eyebrow>
-        <h2 className="mt-5 font-serif text-5xl font-light leading-[1.02] tracking-tight text-vaani-ink md:text-7xl">
+        <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.03] tracking-tight text-vaani-ink md:text-6xl">
           Everything you need. Nothing you don&apos;t.
         </h2>
       </Reveal>
@@ -25,10 +25,8 @@ export const Features = () => (
       <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[28px] border border-vaani-gold-soft bg-vaani-gold-soft md:grid-cols-6">
         {/* Row 1 — context (4) + data (2) */}
         <Reveal className="md:col-span-4">
-          <div className="group relative flex h-full flex-col justify-between overflow-hidden bg-vaani-white p-8 transition-colors duration-500 hover:bg-vaani-cream md:p-12">
-            <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 opacity-[0.06]">
-              <Mandala color="#6E1A1A" spin={false} className="h-full w-full" />
-            </div>
+          <div className="group relative flex h-full flex-col justify-between overflow-hidden bg-vaani-white p-8 transition-colors duration-500 hover:bg-vaani-sand md:p-12">
+            <div className="vaani-grid pointer-events-none absolute inset-0 opacity-[0.5]" />
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-vaani-maroon/10">
               <MessagesSquare className="h-6 w-6 text-vaani-maroon" strokeWidth={1.5} />
             </div>
@@ -62,13 +60,13 @@ export const Features = () => (
 
         {/* Row 2 — always-on (GOLD, 2) + analytics (2) + embed (MAROON, 2) */}
         <Reveal delay={0.05} className="md:col-span-2">
-          <div className="flex h-full flex-col justify-between bg-vaani-gold-soft p-8 text-vaani-maroon md:p-10">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-vaani-maroon/12">
-              <InfinityIcon className="h-6 w-6 text-vaani-maroon" strokeWidth={1.75} />
+          <div className="flex h-full flex-col justify-between bg-vaani-gold p-8 text-white md:p-10">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
+              <InfinityIcon className="h-6 w-6 text-white" strokeWidth={1.75} />
             </div>
             <div className="mt-10">
               <h3 className="font-serif text-2xl font-light">Always on, never off</h3>
-              <p className="mt-3 text-sm text-vaani-maroon/75">
+              <p className="mt-3 text-sm text-white/80">
                 24/7 availability. Handles 100 simultaneous conversations. Zero
                 downtime, zero sick days.
               </p>
@@ -92,19 +90,17 @@ export const Features = () => (
         </Reveal>
 
         <Reveal delay={0.05} className="md:col-span-2">
-          <div className="relative flex h-full flex-col justify-between overflow-hidden bg-vaani-maroon p-8 text-vaani-cream md:p-10">
-            <div className="pointer-events-none absolute -bottom-16 -right-16 h-48 w-48 opacity-[0.1]">
-              <Mandala color="#E8DCC4" duration={120} className="h-full w-full" />
-            </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-vaani-cream/15">
+          <div className="relative flex h-full flex-col justify-between overflow-hidden bg-vaani-ink p-8 text-white md:p-10">
+            <SoundWave className="pointer-events-none absolute inset-x-0 bottom-0 h-16" bars={30} color="#0055FF" opacity={0.18} />
+            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
               <Code2 className="h-6 w-6 text-vaani-gold" strokeWidth={1.5} />
             </div>
-            <div className="mt-10">
+            <div className="relative z-10 mt-10">
               <h3 className="font-serif text-2xl font-light">One-line embed</h3>
-              <code className="mt-4 block overflow-x-auto rounded-lg bg-black/25 p-3 font-mono text-[11px] text-vaani-cream/90">
+              <code className="mt-4 block overflow-x-auto rounded-lg bg-black/40 p-3 font-mono text-[11px] text-white/90">
                 {'<script src="vaani.app/embed/you"></script>'}
               </code>
-              <p className="mt-3 text-sm text-vaani-cream/70">
+              <p className="mt-3 text-sm text-white/70">
                 Add your voice agent to any website in 10 seconds.
               </p>
             </div>

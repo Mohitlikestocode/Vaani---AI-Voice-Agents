@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import { Reveal, Eyebrow } from "./motion";
 import { VoiceDemo } from "./VoiceDemo";
-import { Mandala } from "./Mandala";
+import { SoundWave } from "./SoundWave";
 
 const points = [
   "Understands natural speech, accents and follow-ups",
@@ -13,19 +13,18 @@ export const SeeItInAction = () => (
   <section
     id="see-it"
     data-testid="see-it-in-action"
-    className="relative overflow-hidden bg-vaani-maroon px-6 py-28 text-vaani-cream md:px-10 md:py-40"
+    className="relative overflow-hidden bg-vaani-ink px-6 py-28 text-white md:px-10 md:py-40"
   >
-    <div className="pointer-events-none absolute -right-[15%] -top-[20%] h-[700px] w-[700px] opacity-[0.08]">
-      <Mandala color="#E8DCC4" strokeWidth={1.2} duration={140} className="h-full w-full" />
-    </div>
+    <div className="vaani-grid pointer-events-none absolute inset-0 opacity-[0.06]" />
+    <SoundWave className="pointer-events-none absolute inset-x-0 top-10 h-40" bars={60} color="#0055FF" opacity={0.1} />
 
     <div className="relative z-10 mx-auto grid max-w-[1400px] items-center gap-16 lg:grid-cols-2">
       <Reveal>
         <Eyebrow light>See it in action</Eyebrow>
-        <h2 className="mt-5 font-serif text-5xl font-light leading-[1.02] tracking-tight md:text-7xl">
+        <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.02] tracking-tight md:text-6xl">
           Press play and hear Vaani work.
         </h2>
-        <p className="mt-8 max-w-lg text-lg leading-relaxed text-vaani-cream/70">
+        <p className="mt-8 max-w-lg text-lg leading-relaxed text-white/70">
           This is Sunrise Café&apos;s agent handling a real conversation — listening,
           thinking, and answering from the café&apos;s own menu and hours. No script,
           no hold music.
@@ -34,16 +33,16 @@ export const SeeItInAction = () => (
           {points.map((p) => (
             <li key={p} className="flex items-start gap-3">
               <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-vaani-gold">
-                <Check className="h-3.5 w-3.5 text-vaani-maroon" />
+                <Check className="h-3.5 w-3.5 text-white" />
               </span>
-              <span className="text-vaani-cream/85">{p}</span>
+              <span className="text-white/85">{p}</span>
             </li>
           ))}
         </ul>
         <a
           href="#pricing"
           data-testid="see-it-cta"
-          className="mt-10 inline-flex items-center gap-2 rounded-full bg-vaani-cream px-7 py-4 text-sm font-medium text-vaani-maroon transition-transform duration-300 hover:-translate-y-0.5"
+          className="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-medium text-vaani-ink transition-transform duration-300 hover:-translate-y-0.5"
         >
           Build one for your business →
         </a>

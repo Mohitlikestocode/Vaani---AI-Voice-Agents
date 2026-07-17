@@ -41,8 +41,8 @@ export const Manifesto = () => {
         <Reveal className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <Eyebrow>How it works</Eyebrow>
-            <h2 className="mt-5 font-serif text-5xl font-light leading-[1.02] tracking-tight text-vaani-ink md:text-7xl">
-              Three steps. Sixty seconds. Done.
+          <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.03] tracking-tight text-vaani-ink md:text-6xl">
+            Three steps. Sixty seconds. Done.
             </h2>
           </div>
           {/* step dots */}
@@ -75,7 +75,7 @@ export const Manifesto = () => {
                   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className={`relative flex h-full flex-col overflow-hidden rounded-[24px] border p-8 md:p-10 ${
                     isActive
-                      ? "border-vaani-maroon bg-vaani-maroon text-vaani-cream shadow-[0_35px_70px_-30px_rgba(110,26,26,0.6)]"
+                      ? "border-vaani-ink bg-vaani-ink text-white shadow-[0_35px_70px_-30px_rgba(9,9,11,0.35)]"
                       : "border-vaani-gold-soft bg-vaani-white"
                   }`}
                   style={{

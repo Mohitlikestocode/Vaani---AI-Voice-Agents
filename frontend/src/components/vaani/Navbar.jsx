@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-
-const LOGO =
-  "https://customer-assets.emergentagent.com/job_voice-assistant-pro-43/artifacts/6dhgm9jo_Maroon%20Beige%20Flat%20Illustrative%20Indian%20Wedding%20Event%20Logo.png";
+import { Logo } from "./Logo";
 
 const links = [
   { label: "How it works", href: "#how-it-works" },
@@ -28,7 +26,7 @@ export const Navbar = () => {
       transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
       data-testid="navbar"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-vaani-cream/85 backdrop-blur-xl border-b border-vaani-gold-soft" : ""
+        scrolled ? "bg-white/70 backdrop-blur-xl border-b border-zinc-200/70" : ""
       }`}
     >
       <div
@@ -36,15 +34,8 @@ export const Navbar = () => {
           scrolled ? "py-3" : "py-5"
         }`}
       >
-        <a href="#top" data-testid="navbar-logo" className="flex items-center gap-3">
-          <img
-            src={LOGO}
-            alt="Vaani"
-            className="h-11 w-11 rounded-xl object-cover shadow-sm"
-          />
-          <span className="font-serif text-2xl font-medium tracking-[0.2em] text-vaani-maroon">
-            VAANI
-          </span>
+        <a href="#top" data-testid="navbar-logo">
+          <Logo />
         </a>
 
         <nav className="hidden items-center gap-9 lg:flex">
@@ -53,7 +44,7 @@ export const Navbar = () => {
               key={l.href}
               href={l.href}
               data-testid={`nav-link-${l.label.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-sm text-vaani-muted transition-colors hover:text-vaani-maroon"
+              className="text-sm text-vaani-muted transition-colors hover:text-vaani-ink"
             >
               {l.label}
             </a>
@@ -64,14 +55,14 @@ export const Navbar = () => {
           <a
             href="#top"
             data-testid="navbar-login"
-            className="hidden rounded-full px-4 py-2 text-sm text-vaani-ink transition-colors hover:text-vaani-maroon sm:block"
+            className="hidden rounded-full px-4 py-2 text-sm text-vaani-ink transition-colors hover:text-vaani-gold sm:block"
           >
             Log in
           </a>
           <a
             href="#pricing"
             data-testid="navbar-cta"
-            className="group flex items-center gap-1.5 rounded-full bg-vaani-maroon px-5 py-2.5 text-sm text-vaani-cream transition-all duration-300 hover:bg-vaani-maroon-dark hover:-translate-y-0.5"
+            className="group flex items-center gap-1.5 rounded-full bg-vaani-gold px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-vaani-gold/30"
           >
             Get Started
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

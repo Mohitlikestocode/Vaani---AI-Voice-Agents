@@ -8,8 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"DM Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       borderRadius: {
@@ -19,20 +20,20 @@ module.exports = {
       },
       colors: {
         vaani: {
-          cream: '#FDFBF7',
-          sand: '#F4EFE6',
+          cream: '#FAFAFA',
+          sand: '#F4F4F5',
           white: '#FFFFFF',
           maroon: {
-            DEFAULT: '#6E1A1A',
-            dark: '#541414',
-            light: '#8C2626',
+            DEFAULT: '#09090B',
+            dark: '#000000',
+            light: '#27272A',
           },
           gold: {
-            DEFAULT: '#C5A059',
-            soft: '#E8DCC4',
+            DEFAULT: '#0055FF',
+            soft: '#E4E4E7',
           },
-          ink: '#2D1A1A',
-          muted: '#6D5A5A',
+          ink: '#09090B',
+          muted: '#71717A',
         },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

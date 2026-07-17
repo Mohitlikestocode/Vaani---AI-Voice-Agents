@@ -32,10 +32,10 @@ export const MaskLine = ({ children, delay = 0, className = "" }) => (
 export const Eyebrow = ({ children, className = "", light = false }) => (
   <span
     className={`inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.28em] ${
-      light ? "text-vaani-gold" : "text-vaani-maroon"
+      light ? "text-vaani-gold" : "text-vaani-gold"
     } ${className}`}
   >
-    <span className={`h-px w-6 ${light ? "bg-vaani-gold" : "bg-vaani-maroon"}`} />
+    <span className="h-px w-6 bg-vaani-gold" />
     {children}
   </span>
 );

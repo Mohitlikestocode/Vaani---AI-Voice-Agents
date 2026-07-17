@@ -67,7 +67,7 @@ export const Pricing = () => {
       <div className="mx-auto max-w-[1400px]">
         <Reveal className="mb-12 text-center">
           <div className="flex justify-center"><Eyebrow>Pricing</Eyebrow></div>
-          <h2 className="mx-auto mt-5 max-w-3xl font-serif text-5xl font-light leading-[1.02] tracking-tight text-vaani-ink md:text-7xl">
+          <h2 className="mx-auto mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.03] tracking-tight text-vaani-ink md:text-6xl">
             One agent pays for itself in a day.
           </h2>
           <p className="mt-6 text-vaani-muted">Start free. Commit to a longer term and watch your monthly price drop.</p>
@@ -75,20 +75,20 @@ export const Pricing = () => {
 
         {/* Toggle */}
         <Reveal className="mb-16 flex flex-col items-center gap-3">
-          <div data-testid="billing-toggle" className="inline-flex rounded-full border border-vaani-gold-soft bg-vaani-white p-1.5 shadow-sm">
+          <div data-testid="billing-toggle" className="inline-flex rounded-full border border-zinc-200 bg-vaani-white p-1.5 shadow-sm">
             {billing.map((b) => (
               <button
                 key={b.id}
                 data-testid={`billing-${b.id}`}
                 onClick={() => setCycle(b)}
                 className={`relative flex items-center gap-2 rounded-full px-5 py-2.5 text-sm transition-colors md:px-6 ${
-                  cycle.id === b.id ? "text-vaani-cream" : "text-vaani-muted hover:text-vaani-maroon"
+                  cycle.id === b.id ? "text-white" : "text-vaani-muted hover:text-vaani-ink"
                 }`}
               >
                 {cycle.id === b.id && (
                   <motion.span
                     layoutId="billing-pill"
-                    className="absolute inset-0 rounded-full bg-vaani-maroon"
+                    className="absolute inset-0 rounded-full bg-vaani-ink"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                   />
                 )}
@@ -96,7 +96,7 @@ export const Pricing = () => {
                 {b.save > 0 && (
                   <span
                     className={`relative z-10 rounded-full px-2 py-0.5 font-mono text-[10px] ${
-                      cycle.id === b.id ? "bg-vaani-gold text-vaani-maroon" : "bg-vaani-gold/25 text-vaani-maroon"
+                      cycle.id === b.id ? "bg-vaani-gold text-white" : "bg-vaani-gold/10 text-vaani-gold"
                     }`}
                   >
                     −{b.save}%
@@ -112,7 +112,7 @@ export const Pricing = () => {
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
-                className="flex items-center gap-1.5 font-mono text-xs text-vaani-maroon"
+                className="flex items-center gap-1.5 font-mono text-xs text-vaani-gold"
               >
                 <Sparkles className="h-3.5 w-3.5 text-vaani-gold" />
                 You&apos;re saving {cycle.save}% with {cycle.label.toLowerCase()} billing
@@ -133,27 +133,27 @@ export const Pricing = () => {
                   data-testid={`pricing-card-${t.name.toLowerCase()}`}
                   className={`relative flex h-full flex-col overflow-hidden rounded-[24px] border transition-transform duration-300 hover:-translate-y-1 ${
                     isMaroon
-                      ? "border-vaani-maroon bg-vaani-maroon text-vaani-cream shadow-[0_35px_80px_-25px_rgba(110,26,26,0.65)] lg:scale-[1.03]"
+                      ? "border-vaani-ink bg-vaani-ink text-white shadow-[0_35px_80px_-25px_rgba(9,9,11,0.4)] lg:scale-[1.03]"
                       : "border-vaani-gold-soft bg-vaani-white"
                   }`}
                 >
                   {/* accent cap */}
                   <span
                     className={`absolute inset-x-0 top-0 h-1.5 ${
-                      t.accent === "gold" ? "bg-vaani-gold" : t.accent === "maroon" ? "bg-vaani-maroon" : "bg-vaani-gold"
+                      isMaroon ? "bg-vaani-gold" : t.accent === "maroon" ? "bg-vaani-ink" : "bg-vaani-gold"
                     }`}
                   />
                   {isMaroon && (
-                    <span className="absolute -right-12 top-6 rotate-45 bg-vaani-gold px-12 py-1 text-center font-mono text-[10px] uppercase tracking-wider text-vaani-maroon">
+                    <span className="absolute -right-12 top-6 rotate-45 bg-vaani-gold px-12 py-1 text-center font-mono text-[10px] uppercase tracking-wider text-white">
                       Popular
                     </span>
                   )}
 
                   <div className="p-8 md:p-10">
-                    <h3 className={`font-serif text-3xl font-light ${isMaroon ? "text-vaani-cream" : "text-vaani-maroon"}`}>
+                    <h3 className={`font-display text-2xl font-semibold ${isMaroon ? "text-white" : "text-vaani-ink"}`}>
                       {t.name}
                     </h3>
-                    <p className={`mt-1 text-sm ${isMaroon ? "text-vaani-cream/70" : "text-vaani-muted"}`}>{t.tagline}</p>
+                    <p className={`mt-1 text-sm ${isMaroon ? "text-white/70" : "text-vaani-muted"}`}>{t.tagline}</p>
 
                     {/* Price */}
                     <div className="mt-6 flex h-8 items-center gap-2">
@@ -164,14 +164,14 @@ export const Pricing = () => {
                             initial={{ opacity: 0, x: -4 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0 }}
-                            className={`font-mono text-lg line-through ${isMaroon ? "text-vaani-cream/40" : "text-vaani-muted/50"}`}
+                            className={`font-mono text-lg line-through ${isMaroon ? "text-white/40" : "text-vaani-muted/50"}`}
                           >
                             {inr(t.base)}
                           </motion.span>
                         )}
                       </AnimatePresence>
                       {discounted && (
-                        <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] ${isMaroon ? "bg-vaani-gold text-vaani-maroon" : "bg-vaani-maroon text-vaani-cream"}`}>
+                        <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] ${isMaroon ? "bg-vaani-gold text-white" : "bg-vaani-gold/10 text-vaani-gold"}`}>
                           Save {inr(monthlySave)}/mo
                         </span>
                       )}
@@ -180,11 +180,11 @@ export const Pricing = () => {
                       <AnimatedRupee
                         value={price}
                         testId={`price-${t.name.toLowerCase()}`}
-                        className={`font-serif text-6xl font-light ${isMaroon ? "text-vaani-cream" : "text-vaani-ink"}`}
+                        className={`font-display text-6xl font-semibold ${isMaroon ? "text-white" : "text-vaani-ink"}`}
                       />
-                      <span className={isMaroon ? "text-vaani-cream/70" : "text-vaani-muted"}>{t.suffix}</span>
+                      <span className={isMaroon ? "text-white/70" : "text-vaani-muted"}>{t.suffix}</span>
                     </div>
-                    <p className={`mt-2 font-mono text-[11px] uppercase tracking-wider ${isMaroon ? "text-vaani-cream/50" : "text-vaani-muted"}`}>
+                    <p className={`mt-2 font-mono text-[11px] uppercase tracking-wider ${isMaroon ? "text-white/50" : "text-vaani-muted"}`}>
                       {t.base === 0 ? "no card required" : cycle.months > 1 ? `${inr(price * cycle.months)} ${cycle.term}` : cycle.term}
                     </p>
 
@@ -193,10 +193,10 @@ export const Pricing = () => {
                       data-testid={`pricing-cta-${t.name.toLowerCase()}`}
                       className={`group mt-7 flex items-center justify-center gap-2 rounded-full px-6 py-4 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 ${
                         isMaroon
-                          ? "bg-vaani-gold text-vaani-maroon hover:bg-vaani-cream"
+                          ? "bg-vaani-gold text-white hover:shadow-lg hover:shadow-vaani-gold/30"
                           : t.accent === "maroon"
-                          ? "bg-vaani-maroon text-vaani-cream hover:bg-vaani-maroon-dark"
-                          : "border border-vaani-maroon text-vaani-maroon hover:bg-vaani-maroon hover:text-vaani-cream"
+                          ? "bg-vaani-ink text-white hover:bg-vaani-maroon-light"
+                          : "border border-zinc-300 text-vaani-ink hover:border-vaani-ink hover:bg-vaani-ink hover:text-white"
                       }`}
                     >
                       {t.cta}
@@ -205,17 +205,17 @@ export const Pricing = () => {
                   </div>
 
                   {/* Features */}
-                  <div className={`mt-auto border-t px-8 py-8 md:px-10 ${isMaroon ? "border-vaani-cream/15" : "border-vaani-gold-soft bg-vaani-cream/40"}`}>
+                  <div className={`mt-auto border-t px-8 py-8 md:px-10 ${isMaroon ? "border-white/15" : "border-vaani-gold-soft bg-vaani-sand/50"}`}>
                     {t.plus && (
-                      <p className={`mb-4 font-mono text-[10px] uppercase tracking-widest ${isMaroon ? "text-vaani-gold" : "text-vaani-maroon"}`}>
+                      <p className={`mb-4 font-mono text-[10px] uppercase tracking-widest ${isMaroon ? "text-vaani-gold" : "text-vaani-gold"}`}>
                         {t.plus}
                       </p>
                     )}
                     <ul className="space-y-3">
                       {t.features.map((f) => (
-                        <li key={f} className={`flex items-start gap-3 text-sm ${isMaroon ? "text-vaani-cream/90" : "text-vaani-ink"}`}>
-                          <span className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${isMaroon ? "bg-vaani-gold/25" : "bg-vaani-maroon/10"}`}>
-                            <Check className={`h-3 w-3 ${isMaroon ? "text-vaani-gold" : "text-vaani-maroon"}`} />
+                        <li key={f} className={`flex items-start gap-3 text-sm ${isMaroon ? "text-white/90" : "text-vaani-ink"}`}>
+                          <span className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${isMaroon ? "bg-vaani-gold/25" : "bg-vaani-gold/10"}`}>
+                            <Check className={`h-3 w-3 ${isMaroon ? "text-vaani-gold" : "text-vaani-gold"}`} />
                           </span>
                           {f}
                         </li>

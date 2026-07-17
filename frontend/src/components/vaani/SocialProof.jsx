@@ -50,7 +50,7 @@ export const SocialProof = () => {
       <div className="mx-auto max-w-[1400px]">
         <Reveal className="mb-16 max-w-2xl">
           <Eyebrow>Loved across India</Eyebrow>
-          <h2 className="mt-5 font-serif text-5xl font-light leading-[1.02] tracking-tight text-vaani-ink md:text-7xl">
+          <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.03] tracking-tight text-vaani-ink md:text-6xl">
             Real businesses. Real conversations.
           </h2>
         </Reveal>
@@ -59,7 +59,7 @@ export const SocialProof = () => {
           {stats.map((s) => (
             <Reveal key={s.l}>
               <div className="bg-vaani-white p-8 text-center md:p-10">
-                <p className="font-serif text-4xl font-light text-vaani-maroon md:text-5xl">{s.n}</p>
+                <p className="font-display text-4xl font-semibold text-vaani-gold md:text-5xl">{s.n}</p>
                 <p className="mt-2 text-sm text-vaani-muted">{s.l}</p>
               </div>
             </Reveal>
@@ -78,7 +78,7 @@ export const SocialProof = () => {
                   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className={`relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border p-8 md:p-10 ${
                     isActive
-                      ? "border-vaani-maroon bg-vaani-maroon text-vaani-cream shadow-[0_35px_70px_-30px_rgba(110,26,26,0.6)]"
+                      ? "border-vaani-ink bg-vaani-ink text-white shadow-[0_35px_70px_-30px_rgba(9,9,11,0.35)]"
                       : "border-vaani-gold-soft bg-vaani-white"
                   }`}
                   style={{
@@ -97,19 +97,19 @@ export const SocialProof = () => {
                     />
                   )}
                   <div>
-                    <span className={`font-serif text-6xl leading-none ${isActive ? "text-vaani-gold" : "text-vaani-maroon/25"}`}>
+                    <span className={`font-display text-6xl leading-none ${isActive ? "text-vaani-gold" : "text-zinc-200"}`}>
                       &ldquo;
                     </span>
                     <blockquote
-                      className={`-mt-4 font-serif text-2xl font-light leading-snug transition-colors duration-[1400ms] ${
-                        isActive ? "text-vaani-cream" : "text-vaani-ink"
+                      className={`-mt-4 font-serif text-2xl font-normal leading-snug transition-colors duration-[1400ms] ${
+                        isActive ? "text-white" : "text-vaani-ink"
                       }`}
                     >
                       {t.quote}
                     </blockquote>
                     <div className="mt-5 flex">
                       {[...Array(5)].map((_, k) => (
-                        <Star key={k} className="h-4 w-4 fill-vaani-gold text-vaani-gold" />
+                        <Star key={k} className="h-4 w-4 fill-amber-400 text-amber-400" />
                       ))}
                     </div>
                   </div>
@@ -117,7 +117,7 @@ export const SocialProof = () => {
                     <img src={t.avatar} alt={t.name} className="h-12 w-12 rounded-full object-cover" />
                     <div>
                       <p className={`font-medium ${isActive ? "" : "text-vaani-ink"}`}>{t.name}</p>
-                      <p className={`text-sm transition-colors duration-[1400ms] ${isActive ? "text-vaani-cream/60" : "text-vaani-muted"}`}>
+                      <p className={`text-sm transition-colors duration-[1400ms] ${isActive ? "text-white/60" : "text-vaani-muted"}`}>
                         {t.role}
                       </p>
                     </div>
