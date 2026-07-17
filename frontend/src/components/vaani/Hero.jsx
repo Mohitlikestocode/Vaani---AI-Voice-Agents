@@ -90,14 +90,33 @@ export const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.9 }}
-            className="mt-8 flex items-center gap-2 font-mono text-xs text-vaani-muted"
+            className="mt-8 flex items-center gap-3"
           >
-            <span className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+            <div className="flex -space-x-3">
+              {[
+                "https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&w=80&q=80",
+                "https://images.unsplash.com/photo-1647598378432-1aa8fa34f37f?auto=format&fit=crop&w=80&q=80",
+                "https://images.unsplash.com/photo-1573497019707-1c04de26e58c?auto=format&fit=crop&w=80&q=80",
+                "https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=80&q=80",
+              ].map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt=""
+                  className="h-9 w-9 rounded-full border-2 border-vaani-cream object-cover"
+                />
               ))}
-            </span>
-            4.9/5 from 50+ reviews · Trusted by 200+ businesses
+            </div>
+            <div>
+              <span className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                ))}
+              </span>
+              <span className="font-mono text-xs text-vaani-muted">
+                4.9/5 · Trusted by 200+ businesses
+              </span>
+            </div>
           </motion.div>
 
           <motion.div
@@ -134,6 +153,8 @@ export const Hero = () => {
           transition={{ delay: 0.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="relative z-10"
         >
+          {/* azure glow behind the demo */}
+          <div className="pointer-events-none absolute -inset-8 -z-10 rounded-[40px] bg-vaani-gold/[0.08] blur-2xl" />
           <SoundWave
             className="absolute inset-x-0 -bottom-16 -z-10 h-24"
             bars={44}
@@ -150,6 +171,24 @@ export const Hero = () => {
             </p>
             <p className="font-mono text-2xl font-semibold text-vaani-ink">1,248</p>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.35, duration: 0.8 }}
+            className="absolute bottom-full right-6 mb-5 z-20 hidden items-center gap-2 rounded-2xl border border-zinc-200 bg-white px-4 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.06)] lg:flex"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-vaani-gold/10 font-mono text-[11px] font-semibold text-vaani-gold">
+              हि
+            </span>
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-vaani-muted">
+                Speaks
+              </p>
+              <p className="text-sm font-medium text-vaani-ink">हिन्दी · English</p>
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -160,6 +199,21 @@ export const Hero = () => {
               New booking confirmed
             </p>
             <p className="text-sm">Table for 4 · 8:30 PM</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.45, duration: 0.8 }}
+            className="absolute top-full left-6 mt-5 z-20 hidden items-center gap-2.5 rounded-2xl border border-zinc-200 bg-white px-4 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.06)] lg:flex"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-vaani-gold opacity-70" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-vaani-gold" />
+            </span>
+            <p className="text-sm font-medium text-vaani-ink">
+              Replies in <span className="font-mono text-vaani-gold">0.8s</span>
+            </p>
           </motion.div>
 
           <VoiceDemo />
