@@ -1,138 +1,120 @@
 {
-  "theme": "Light/Warm Theme (NO DARK THEME)",
-  "brand_identity": {
-    "concept": "Premium, culturally-rooted Indian AI voice-agent SaaS. Inspired by Sarvam.ai. Elegant, warm, spiritual minimalism combined with modern tech credibility.",
-    "logo_url": "https://customer-assets.emergentagent.com/job_voice-assistant-pro-43/artifacts/6dhgm9jo_Maroon%20Beige%20Flat%20Illustrative%20Indian%20Wedding%20Event%20Logo.png",
-    "primary_motif": "Concentric lotus-mandala outlines, subtle arcs, petal shapes. Used as large, rotating background elements (opacity 5-10%) and subtle structural dividers."
+  "theme": "Light",
+  "app_type": "saas_app",
+  "industry": "AI Voice Agent",
+  "typography": {
+    "fonts": [
+      {
+        "name": "Outfit",
+        "type": "Headings",
+        "url": "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap",
+        "fallback": "sans-serif",
+        "usage": "All H1-H6 tags. Must apply 'tracking-tight' for a crisp, technical look."
+      },
+      {
+        "name": "DM Sans",
+        "type": "Body",
+        "url": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap",
+        "fallback": "sans-serif",
+        "usage": "All paragraph text, descriptions, and labels."
+      },
+      {
+        "name": "JetBrains Mono",
+        "type": "Monospace",
+        "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap",
+        "fallback": "monospace",
+        "usage": "Use specifically for the ROI calculator digits, price counters, floating stat chips, and any data-heavy numeric values."
+      }
+    ],
+    "hierarchy": {
+      "h1": "text-5xl sm:text-6xl font-bold tracking-tighter leading-none text-vaani-ink",
+      "h2": "text-3xl sm:text-4xl font-semibold tracking-tight text-vaani-ink",
+      "h3": "text-xl sm:text-2xl font-medium tracking-tight text-vaani-ink",
+      "body": "text-base leading-relaxed text-vaani-muted",
+      "mono_stats": "font-mono text-sm tracking-widest uppercase text-vaani-muted"
+    }
   },
   "colors": {
-    "background": {
-      "default": "#FDFBF7",
-      "alt": "#F4EFE6",
-      "inverted": "#6E1A1A"
+    "palette": {
+      "vaani": {
+        "cream": {
+          "DEFAULT": "#FAFAFA",
+          "description": "Page Background: Clean Alabaster/Zinc-50. Replaces the old yellow-tinted cream for a crisp, sterile SaaS feel."
+        },
+        "sand": {
+          "DEFAULT": "#F4F4F5",
+          "description": "Section/Alt Background: Cool Zinc-100. Used for secondary sections, 'How it works' background, and subtle floating chips."
+        },
+        "white": {
+          "DEFAULT": "#FFFFFF",
+          "description": "Surface/Cards: Pure white for maximum contrast on bento grids and cards."
+        },
+        "ink": {
+          "DEFAULT": "#09090B",
+          "description": "Primary Text: Deep Slate / Zinc-950. Replaces standard black for a richer, softer contrast."
+        },
+        "muted": {
+          "DEFAULT": "#71717A",
+          "description": "Secondary Text: Cool grey / Zinc-500 for descriptions and inactive states."
+        },
+        "primary": {
+          "DEFAULT": "#09090B",
+          "dark": "#000000",
+          "light": "#27272A",
+          "description": "Replaces 'vaani.maroon'. This is the deep, authoritative slate used for inverted bands (See-it-in-action, Pro pricing, Footer, ROI result card). Provides high-end 'Stripe/Linear' contrast."
+        },
+        "accent": {
+          "DEFAULT": "#0055FF",
+          "soft": "#E0E7FF",
+          "description": "Replaces 'vaani.gold'. Electric Azure. Used for primary CTA buttons, waveform motifs, active slider tracks, and animated highlights. Gives the 'AI/Tech' kinetic energy."
+        }
+      }
     },
-    "primary": {
-      "default": "#6E1A1A",
-      "hover": "#541414",
-      "light": "#8C2626"
-    },
-    "secondary": {
-      "default": "#C5A059",
-      "hover": "#A88746",
-      "light": "#E8DCC4"
-    },
-    "text": {
-      "main": "#2D1A1A",
-      "muted": "#6D5A5A",
-      "inverted": "#FDFBF7",
-      "inverted_muted": "#E8DCC4"
-    },
-    "border": {
-      "default": "#E8DCC4",
-      "maroon": "#6E1A1A",
-      "light": "#F4EFE6"
-    }
-  },
-  "typography": {
-    "fonts": {
-      "heading": "'Cormorant Garamond', serif",
-      "body": "'Manrope', sans-serif"
-    },
-    "google_fonts_url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap",
-    "guidelines": [
-      "Use Cormorant Garamond for all H1, H2, H3 headings and large numerals. Tracking should be tight (tracking-tighter) for large sizes.",
-      "Use Manrope for body text, UI elements, buttons, and small labels. Keep it highly legible and clean.",
-      "Never center-align large blocks of text. Use left-alignment with generous padding.",
-      "Use 'Cormorant Garamond' in italics for subtle, elegant emphasis or quotes."
-    ]
-  },
-  "layouts": {
-    "spacing": "Generous. Use 2-3x normal padding (e.g., py-24, py-32 for sections) to give a luxurious, airy 'Sarvam.ai' feel.",
-    "grid": "Bento grids with 1px subtle borders (border-[#E8DCC4]) and large internal padding (p-8 to p-12).",
-    "borders": "Avoid heavy shadows. Use delicate 1px solid borders for definition, or very soft ambient shadows."
-  },
-  "motion": {
-    "libraries": ["framer-motion", "lenis"],
-    "guidelines": [
-      "Implement Lenis for smooth, premium momentum scrolling.",
-      "Kinetic Hero: Masked line-by-line reveal for the main H1 using framer-motion (e.g., initial { y: '100%' } animate { y: 0 } within an overflow-hidden wrapper).",
-      "3D/Parallax Moment: A large SVG lotus/mandala positioned absolutely in the hero background, rotating incredibly slowly (duration 60s+).",
-      "Use Case Cards: Hover interactions that expand or reveal a 'sample chat' interface smoothly."
-    ]
+    "mapping_instructions": "Map the old 'vaani.maroon' tokens to 'vaani.primary' (the dark zinc), and map 'vaani.gold' to 'vaani.accent' (the electric blue). Update the Tailwind config accordingly."
   },
   "visual_enhancers": {
-    "mandala_motif": "Use inline SVGs for mandala/lotus patterns. Style with stroke='#6E1A1A' and strokeWidth='1' or '0.5' at very low opacity (5-10%).",
-    "noise": "Optional: A highly subtle, fixed background SVG noise texture (opacity 2-3%) over the entire page to give it a printed, 'paper' feel.",
-    "buttons": "Pill-shaped (rounded-full). Primary buttons are Deep Maroon with Cream text. Hover states lift slightly (-translate-y-0.5) with a soft shadow."
-  },
-  "image_urls": {
-    "use_cases": {
-      "restaurant": "https://images.unsplash.com/photo-1622023133253-63706c9c3eb4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwzfHxpbmRpYW4lMjByZXN0YXVyYW50JTIwaW50ZXJpb3IlMjB3YXJtJTIwbGlnaHRpbmd8ZW58MHx8fHwxNzg0MDE5OTM5fDA&ixlib=rb-4.1.0&q=85",
-      "salon": "https://images.unsplash.com/photo-1722935408489-2bf93349c8cb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBzYWxvbiUyMGJlYXV0eSUyMHBhcmxvciUyMHNwYXxlbnwwfHx8fDE3ODQwMTk5Mzh8MA&ixlib=rb-4.1.0&q=85",
-      "clinic": "https://images.pexels.com/photos/19438563/pexels-photo-19438563.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      "hotel": "https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBib3V0aXF1ZSUyMGhvdGVsJTIwbG9iYnklMjBsdXh1cnl8ZW58MHx8fHwxNzg0MDE5OTM4fDA&ixlib=rb-4.1.0&q=85"
+    "motif": {
+      "description": "Remove all lotus/mandala SVGs. Replace with a modern 'Audio/Voice' and 'SaaS' motif.",
+      "implementation": "1. Subtle Grid: Use a background CSS grid pattern (bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]) over the cream background. 2. Soundwaves: Use smooth SVG sine waves or equalizer bars at low opacity (10%) colored in vaani.accent as background textural elements behind the kinetic hero and voice demos."
     },
-    "testimonials": {
-      "priya_nair": "https://images.unsplash.com/photo-1590650153855-d9e808231d41?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB3b21hbiUyMGJ1c2luZXNzJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzg0MDE5OTQ0fDA&ixlib=rb-4.1.0&q=85",
-      "rohan_mehta": "https://images.unsplash.com/photo-1647598378432-1aa8fa34f37f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTN8MHwxfHNlYXJjaHw0fHxpbmRpYW4lMjBidXNpbmVzcyUyMG93bmVyJTIwcG9ydHJhaXQlMjBmcmllbmRseXxlbnwwfHx8fDE3ODQwMTk5Mzh8MA&ixlib=rb-4.1.0&q=85",
-      "dr_anita_rao": "https://images.unsplash.com/photo-1573497019707-1c04de26e58c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw0fHxpbmRpYW4lMjB3b21hbiUyMGJ1c2luZXNzJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzg0MDE5OTQ0fDA&ixlib=rb-4.1.0&q=85"
+    "surfaces": {
+      "glass": "For the sticky navbar: bg-white/70 backdrop-blur-xl border-b border-zinc-200/50. Absolutely NO fully transparent navbars.",
+      "cards": "Bento grids and feature cards must use pure bg-white with a delicate 1px border (border-zinc-200) and a soft ambient shadow: shadow-[0_8px_30px_rgb(0,0,0,0.04)]."
     }
   },
-  "sections_guidance": [
-    {
-      "name": "Navbar",
-      "details": "Sticky, glassmorphism (bg-[#FDFBF7]/80 backdrop-blur-md). Display exact logo image on the left. Nav links in Manrope, secondary colors. Primary CTA in deep maroon."
+  "component_guidelines": {
+    "navbar": "Glassmorphic (bg-white/70 backdrop-blur-xl). Sharp layout. Left: Logo, Middle: Nav Links (text-vaani-muted hover:text-vaani-ink), Right: CTA Pill.",
+    "hero": "Kinetic and bright. Background: vaani.cream + grid motif. Floating stat chips should be vaani.white with subtle shadows. The animated voice demo should use vaani.accent for its pulsing 'speaking' rings.",
+    "inverted_bands": "For the 'See it in action' band, 'ROI result card', 'Pro pricing card', and 'Footer': Use vaani.primary (bg-[#09090B]). Text must be inverted to pure white. Accents inside these bands (buttons, active states) use vaani.accent.",
+    "buttons": {
+      "primary": "Pill-shaped (rounded-full). bg-vaani-accent text-white hover:bg-blue-700 transition-all active:scale-95.",
+      "secondary": "Pill-shaped. bg-white text-vaani-ink border border-zinc-200 hover:bg-zinc-50 transition-all.",
+      "inverted": "For buttons placed ON the inverted bands: bg-white text-vaani-primary hover:bg-zinc-100."
     },
-    {
-      "name": "Hero",
-      "details": "Massive typography 'Your business, always on call' in Cormorant Garamond. Use kinetic masked line-by-line reveal. Background features a slowly rotating, large, subtle (5% opacity) maroon mandala/lotus SVG. Add an 'Animated voice demo' UI element (minimalist waveform or chat pulse in maroon/brass)."
-    },
-    {
-      "name": "Logo Marquee",
-      "details": "Editorial typography for brand names (Spice Garden, Glow Salon, etc.). Slow, smooth scroll (using react-fast-marquee). Text color muted charcoal/maroon."
-    },
-    {
-      "name": "How It Works (Manifesto)",
-      "details": "Numbered chapters ('1. Describe', '2. Customize', '3. Go Live'). Use massive serif numerals (text-8xl) tightly cropped. Elegant editorial layout with thin dividing lines."
-    },
-    {
-      "name": "Use Cases",
-      "details": "Grid of cards. Each card uses culturally relevant photography (from image_urls). On hover, display an expandable sample chat overlay showing context-aware AI conversation."
-    },
-    {
-      "name": "Platform Features",
-      "details": "Bento grid focusing on 'context-aware', 'no hallucination', 'always-on', etc. Warm beige card backgrounds with maroon typography and subtle lotus SVG watermark accents."
-    },
-    {
-      "name": "Interactive ROI Calculator",
-      "details": "Functional sliders (calls/day, missed %, avg value) to calculate 'recovered revenue in ₹'. Use Radix/Shadcn sliders customized with maroon tracks and thumbs. Elegant numeral displays."
-    },
-    {
-      "name": "Pricing",
-      "details": "Three tiers: Free, Pro, Business. Highlight 'Pro' with a solid maroon background and cream text. Include a Monthly/Annual toggle."
-    },
-    {
-      "name": "Social Proof",
-      "details": "Testimonial cards with real Indian business owner portraits. Large serif quotation marks. High contrast text."
-    },
-    {
-      "name": "Footer (Inverted)",
-      "details": "Dark section! bg-[#6E1A1A] with text-[#FDFBF7]. Massive 'VAANI' serif wordmark. Large lotus watermark. Final CTA."
-    }
+    "cards_and_bento": "Sharp inner corners, moderately rounded outer borders (rounded-2xl or rounded-3xl). Keep padding generous (p-8 or p-10). Avoid generic card drop-shadows; rely on 1px borders and extremely diffuse, low-opacity ambient shadows.",
+    "roi_calculator": "Sliders should use vaani.accent for the filled track, and vaani.sand for the unfilled track. The 'recovered revenue' result output should be housed in an inverted card (vaani.primary) with JetBrains Mono typography for the numbers.",
+    "pricing_toggle": "A subtle pill toggle (bg-vaani-sand p-1 rounded-full). The active state should be a white pill with a shadow-sm over it."
+  },
+  "grids": "Use 12-column subgrids for the bento layout. Features should be asymmetric. Example: one large hero feature spanning 8 columns, with two smaller 4-column features. Maintain consistent 24px (gap-6) spacing.",
+  "layouts": "Ensure ample negative space. Use py-24 or py-32 for section padding. Content should never feel cramped.",
+  "motion": "Keep existing framer-motion and Lenis smooth scrolling. Ensure scroll reveals slide up softly (y: 20, opacity: 0 to 1) with an easeOut spring. The animated price counter should tick up smoothly. Ensure 'prefers-reduced-motion' is respected.",
+  "accessibility": "Ensure WCAG AA compliance. Text-to-background contrast ratios must exceed 4.5:1. Primary accent (#0055FF) on white passes WCAG AA for normal and large text. Ensure all inputs and buttons have a high-contrast focus-visible ring (ring-2 ring-vaani-accent ring-offset-2).",
+  "logo_advice": "USER LOGO UPDATE REQUIRED: Please change your logo color. The Wordmark should be Deep Slate/Black (#09090B) to provide sharp contrast against the light theme. If your logo has a standalone icon, make the icon Electric Azure (#0055FF) to match the new kinetic AI accents. Remove any gold/maroon from the brand assets.",
+  "instructions_to_main_agent": [
+    "You are writing standard React .js files, NOT .tsx. Do not include TypeScript types/interfaces.",
+    "Completely eradicate the old Maroon/Gold/Cream color palette in the Tailwind config and component files.",
+    "Map the requested palette exactly to the Tailwind tokens provided so the existing structure retains its semantic color references, just with a new aesthetic.",
+    "Replace Cormorant Garamond with Outfit for all headings, and replace any ornate serif styling with clean, tracking-tight geometric styling.",
+    "Remove any SVG mandalas, lotuses, or Indian motifs. Replace them with technical dots, grids, or CSS audio waveforms.",
+    "Ensure all inverted surfaces (footer, see-in-action band, ROI card) correctly use the vaani.primary dark background and invert their child text to white."
   ],
-  "accessibility": {
-    "contrast": "Ensure all text meets WCAG AA standard. The charcoal maroon text (#2D1A1A) on cream background (#FDFBF7) provides excellent contrast.",
-    "testing": "All interactive elements MUST include data-testid attributes (e.g., data-testid='roi-slider', data-testid='pricing-toggle')."
-  },
   "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
-    "You MUST strictly avoid generic 'SaaS Blue' or dark mode tropes. The site is a warm, well-lit, luxury editorial space.",
-    "Do NOT use HTML-based components for advanced interactions. Customise Shadcn components to match the brand identity (e.g., override rounded corners, border colors).",
-    "Do not apply global transitions like 'transition: all'. Apply specific transitions (opacity, transform) to avoid breaking framer-motion.",
-    "Use Phosphor Icons (thin or light weight) or Lucide (strokeWidth=1.5) for a refined look.",
-    "Do not center align text heavily. Favor left-alignment with structured, clean grids.",
-    "Build the mandala motif using an inline SVG with precise path/circle geometries, applying a slow rotation animation using Framer Motion."
-  ],
-  "component_instructions": {
-    "ui_components": "Use Shadcn primitives but deeply customize them via Tailwind classes to remove the 'Vercel' look. Sliders and toggles must use the maroon/gold palette."
-  }
+    "NEVER use generic centered text alignments unless specifically instructed; favor left-aligned, structured typography for a modern SaaS feel.",
+    "NEVER use AI emoji characters (🤖🧠💡) for icons. Use Phosphor, Lucide, or Heroicons.",
+    "Always apply data-testid attributes (e.g., data-testid=\"roi-calculator-slider\") to all interactive elements, buttons, and input sliders.",
+    "Do not use dark colors as gradients. Use solid dark colors with subtle 1px inner borders to create depth.",
+    "Ensure no 'AI slop' aesthetics (meaningless purple/pink glowing blobs). Keep it sharp, technical, and grounded.",
+    "Use 2-3x more spacing than feels comfortable. E.g., p-8 or p-12 instead of p-4.",
+    "Do not use transparent backgrounds for the dropdowns, dialogs, or sticky navbars. Always provide a solid or heavily blurred background to prevent text collision."
+  ]
 }
