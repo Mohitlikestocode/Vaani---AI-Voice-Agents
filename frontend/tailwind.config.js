@@ -19,7 +19,7 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)'
       },
       colors: {
-        vaani: {
+        swara: {
           cream: '#FAFAFA',
           sand: '#F4F4F5',
           white: '#FFFFFF',

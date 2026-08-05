@@ -1,7 +1,7 @@
-# Vaani — AI Voice Agents for Every Business
+# Swara â€” AI Voice Agents for Every Business
 
 ## Problem Statement
-Build an award-worthy (Awwwards-level) marketing landing page for Vaani, an AI voice-agent SaaS for local Indian businesses. Competitor to brilo.ai, inspired by Atlassian Jira. Light theme only, premium editorial art direction, heavy motion (framer-motion + lenis).
+Build an award-worthy (Awwwards-level) marketing landing page for Swara, an AI voice-agent SaaS for local Indian businesses. Competitor to brilo.ai, inspired by Atlassian Jira. Light theme only, premium editorial art direction, heavy motion (framer-motion + lenis).
 
 ## User Choices
 - Build everything, but landing page FIRST (signup/login + dashboard deferred).
@@ -12,25 +12,25 @@ Build an award-worthy (Awwwards-level) marketing landing page for Vaani, an AI v
 
 ## Architecture
 - Frontend: React 19 + Tailwind + framer-motion + lenis (smooth scroll). Shadcn UI (Slider, Accordion).
-- Design: "Swiss Editorial (Light)" — Cormorant Garamond (serif headings), Manrope (body), JetBrains Mono (labels). Palette: bg #F5F4F0, terracotta #D94F36, forest #213A2C, ink #111.
+- Design: "Swiss Editorial (Light)" â€” Cormorant Garamond (serif headings), Manrope (body), JetBrains Mono (labels). Palette: bg #F5F4F0, terracotta #D94F36, forest #213A2C, ink #111.
 - No backend used; server.py untouched.
 
 ## Implemented (2026)
 - Kinetic hero with masked line-by-line reveal + parallax animated voice-demo mockup.
 - Editorial logo marquee, "See it in action" forest section with 2nd voice demo.
 - Numbered manifesto (How it works), Use cases (clipped-frame photography + accordion sample chats).
-- Bento features grid, interactive ROI calculator (verified ₹3,02,400 default), pricing with Monthly/6mo/Annual toggle (verified discounts).
+- Bento features grid, interactive ROI calculator (verified â‚¹3,02,400 default), pricing with Monthly/6mo/Annual toggle (verified discounts).
 - Social proof stats + testimonials, final CTA, massive-wordmark footer.
 - Tested: 21/21 frontend checks passed (iteration_1.json).
 
 ## Backlog / Next
 - P0: Auth (JWT or Emergent Google login) + Get Started flow.
-- P1: Agent creation wizard (Describe → Customize → Go live), dashboard, analytics.
+- P1: Agent creation wizard (Describe â†’ Customize â†’ Go live), dashboard, analytics.
 - P2: Real voice agent (LLM + TTS/STT), multi-language, embed widget, lead-capture backend.
 
-## Update — Brand Redesign (2026)
+## Update â€” Brand Redesign (2026)
 - Full art-direction realign to new logo (cream lotus-mandala on deep maroon), Sarvam.ai-inspired warm Indian luxury. Light/warm theme.
 - Palette: cream #FDFBF7, maroon #6E1A1A (+dark/light), gold #C5A059 / soft #E8DCC4, ink #2D1A1A. Fonts unchanged (Cormorant Garamond + Manrope).
-- Added reusable Mandala SVG motif (slow-rotating watermarks in hero, features, ROI card, CTA, footer). Logo image used in navbar/CTA/footer. Devanagari "वाणी" hero accent.
+- Added reusable Mandala SVG motif (slow-rotating watermarks in hero, features, ROI card, CTA, footer). Logo image used in navbar/CTA/footer. Devanagari "à¤µà¤¾à¤£à¥€" hero accent.
 - Slider themed via --primary=maroon HSL. Maroon inverted bands: See-it-in-action, Features embed tile, ROI result card, Pro pricing card, big testimonial, footer.
-- Verified: iteration_2.json 100% frontend pass, 0 console errors. ROI ₹3,02,400 & pricing toggle intact.
+- Verified: iteration_2.json 100% frontend pass, 0 console errors. ROI â‚¹3,02,400 & pricing toggle intact.

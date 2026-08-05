@@ -27,16 +27,16 @@
       }
     ],
     "hierarchy": {
-      "h1": "text-5xl sm:text-6xl font-bold tracking-tighter leading-none text-vaani-ink",
-      "h2": "text-3xl sm:text-4xl font-semibold tracking-tight text-vaani-ink",
-      "h3": "text-xl sm:text-2xl font-medium tracking-tight text-vaani-ink",
-      "body": "text-base leading-relaxed text-vaani-muted",
-      "mono_stats": "font-mono text-sm tracking-widest uppercase text-vaani-muted"
+      "h1": "text-5xl sm:text-6xl font-bold tracking-tighter leading-none text-swara-ink",
+      "h2": "text-3xl sm:text-4xl font-semibold tracking-tight text-swara-ink",
+      "h3": "text-xl sm:text-2xl font-medium tracking-tight text-swara-ink",
+      "body": "text-base leading-relaxed text-swara-muted",
+      "mono_stats": "font-mono text-sm tracking-widest uppercase text-swara-muted"
     }
   },
   "colors": {
     "palette": {
-      "vaani": {
+      "Swara": {
         "cream": {
           "DEFAULT": "#FAFAFA",
           "description": "Page Background: Clean Alabaster/Zinc-50. Replaces the old yellow-tinted cream for a crisp, sterile SaaS feel."
@@ -61,21 +61,21 @@
           "DEFAULT": "#09090B",
           "dark": "#000000",
           "light": "#27272A",
-          "description": "Replaces 'vaani.maroon'. This is the deep, authoritative slate used for inverted bands (See-it-in-action, Pro pricing, Footer, ROI result card). Provides high-end 'Stripe/Linear' contrast."
+          "description": "Replaces 'Swara.maroon'. This is the deep, authoritative slate used for inverted bands (See-it-in-action, Pro pricing, Footer, ROI result card). Provides high-end 'Stripe/Linear' contrast."
         },
         "accent": {
           "DEFAULT": "#0055FF",
           "soft": "#E0E7FF",
-          "description": "Replaces 'vaani.gold'. Electric Azure. Used for primary CTA buttons, waveform motifs, active slider tracks, and animated highlights. Gives the 'AI/Tech' kinetic energy."
+          "description": "Replaces 'Swara.gold'. Electric Azure. Used for primary CTA buttons, waveform motifs, active slider tracks, and animated highlights. Gives the 'AI/Tech' kinetic energy."
         }
       }
     },
-    "mapping_instructions": "Map the old 'vaani.maroon' tokens to 'vaani.primary' (the dark zinc), and map 'vaani.gold' to 'vaani.accent' (the electric blue). Update the Tailwind config accordingly."
+    "mapping_instructions": "Map the old 'Swara.maroon' tokens to 'Swara.primary' (the dark zinc), and map 'Swara.gold' to 'Swara.accent' (the electric blue). Update the Tailwind config accordingly."
   },
   "visual_enhancers": {
     "motif": {
       "description": "Remove all lotus/mandala SVGs. Replace with a modern 'Audio/Voice' and 'SaaS' motif.",
-      "implementation": "1. Subtle Grid: Use a background CSS grid pattern (bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]) over the cream background. 2. Soundwaves: Use smooth SVG sine waves or equalizer bars at low opacity (10%) colored in vaani.accent as background textural elements behind the kinetic hero and voice demos."
+      "implementation": "1. Subtle Grid: Use a background CSS grid pattern (bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]) over the cream background. 2. Soundwaves: Use smooth SVG sine waves or equalizer bars at low opacity (10%) colored in Swara.accent as background textural elements behind the kinetic hero and voice demos."
     },
     "surfaces": {
       "glass": "For the sticky navbar: bg-white/70 backdrop-blur-xl border-b border-zinc-200/50. Absolutely NO fully transparent navbars.",
@@ -83,22 +83,22 @@
     }
   },
   "component_guidelines": {
-    "navbar": "Glassmorphic (bg-white/70 backdrop-blur-xl). Sharp layout. Left: Logo, Middle: Nav Links (text-vaani-muted hover:text-vaani-ink), Right: CTA Pill.",
-    "hero": "Kinetic and bright. Background: vaani.cream + grid motif. Floating stat chips should be vaani.white with subtle shadows. The animated voice demo should use vaani.accent for its pulsing 'speaking' rings.",
-    "inverted_bands": "For the 'See it in action' band, 'ROI result card', 'Pro pricing card', and 'Footer': Use vaani.primary (bg-[#09090B]). Text must be inverted to pure white. Accents inside these bands (buttons, active states) use vaani.accent.",
+    "navbar": "Glassmorphic (bg-white/70 backdrop-blur-xl). Sharp layout. Left: Logo, Middle: Nav Links (text-swara-muted hover:text-swara-ink), Right: CTA Pill.",
+    "hero": "Kinetic and bright. Background: Swara.cream + grid motif. Floating stat chips should be Swara.white with subtle shadows. The animated voice demo should use Swara.accent for its pulsing 'speaking' rings.",
+    "inverted_bands": "For the 'See it in action' band, 'ROI result card', 'Pro pricing card', and 'Footer': Use Swara.primary (bg-[#09090B]). Text must be inverted to pure white. Accents inside these bands (buttons, active states) use Swara.accent.",
     "buttons": {
-      "primary": "Pill-shaped (rounded-full). bg-vaani-accent text-white hover:bg-blue-700 transition-all active:scale-95.",
-      "secondary": "Pill-shaped. bg-white text-vaani-ink border border-zinc-200 hover:bg-zinc-50 transition-all.",
-      "inverted": "For buttons placed ON the inverted bands: bg-white text-vaani-primary hover:bg-zinc-100."
+      "primary": "Pill-shaped (rounded-full). bg-swara-accent text-white hover:bg-blue-700 transition-all active:scale-95.",
+      "secondary": "Pill-shaped. bg-white text-swara-ink border border-zinc-200 hover:bg-zinc-50 transition-all.",
+      "inverted": "For buttons placed ON the inverted bands: bg-white text-swara-primary hover:bg-zinc-100."
     },
     "cards_and_bento": "Sharp inner corners, moderately rounded outer borders (rounded-2xl or rounded-3xl). Keep padding generous (p-8 or p-10). Avoid generic card drop-shadows; rely on 1px borders and extremely diffuse, low-opacity ambient shadows.",
-    "roi_calculator": "Sliders should use vaani.accent for the filled track, and vaani.sand for the unfilled track. The 'recovered revenue' result output should be housed in an inverted card (vaani.primary) with JetBrains Mono typography for the numbers.",
-    "pricing_toggle": "A subtle pill toggle (bg-vaani-sand p-1 rounded-full). The active state should be a white pill with a shadow-sm over it."
+    "roi_calculator": "Sliders should use Swara.accent for the filled track, and Swara.sand for the unfilled track. The 'recovered revenue' result output should be housed in an inverted card (Swara.primary) with JetBrains Mono typography for the numbers.",
+    "pricing_toggle": "A subtle pill toggle (bg-swara-sand p-1 rounded-full). The active state should be a white pill with a shadow-sm over it."
   },
   "grids": "Use 12-column subgrids for the bento layout. Features should be asymmetric. Example: one large hero feature spanning 8 columns, with two smaller 4-column features. Maintain consistent 24px (gap-6) spacing.",
   "layouts": "Ensure ample negative space. Use py-24 or py-32 for section padding. Content should never feel cramped.",
   "motion": "Keep existing framer-motion and Lenis smooth scrolling. Ensure scroll reveals slide up softly (y: 20, opacity: 0 to 1) with an easeOut spring. The animated price counter should tick up smoothly. Ensure 'prefers-reduced-motion' is respected.",
-  "accessibility": "Ensure WCAG AA compliance. Text-to-background contrast ratios must exceed 4.5:1. Primary accent (#0055FF) on white passes WCAG AA for normal and large text. Ensure all inputs and buttons have a high-contrast focus-visible ring (ring-2 ring-vaani-accent ring-offset-2).",
+  "accessibility": "Ensure WCAG AA compliance. Text-to-background contrast ratios must exceed 4.5:1. Primary accent (#0055FF) on white passes WCAG AA for normal and large text. Ensure all inputs and buttons have a high-contrast focus-visible ring (ring-2 ring-swara-accent ring-offset-2).",
   "logo_advice": "USER LOGO UPDATE REQUIRED: Please change your logo color. The Wordmark should be Deep Slate/Black (#09090B) to provide sharp contrast against the light theme. If your logo has a standalone icon, make the icon Electric Azure (#0055FF) to match the new kinetic AI accents. Remove any gold/maroon from the brand assets.",
   "instructions_to_main_agent": [
     "You are writing standard React .js files, NOT .tsx. Do not include TypeScript types/interfaces.",
@@ -106,11 +106,11 @@
     "Map the requested palette exactly to the Tailwind tokens provided so the existing structure retains its semantic color references, just with a new aesthetic.",
     "Replace Cormorant Garamond with Outfit for all headings, and replace any ornate serif styling with clean, tracking-tight geometric styling.",
     "Remove any SVG mandalas, lotuses, or Indian motifs. Replace them with technical dots, grids, or CSS audio waveforms.",
-    "Ensure all inverted surfaces (footer, see-in-action band, ROI card) correctly use the vaani.primary dark background and invert their child text to white."
+    "Ensure all inverted surfaces (footer, see-in-action band, ROI card) correctly use the Swara.primary dark background and invert their child text to white."
   ],
   "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
     "NEVER use generic centered text alignments unless specifically instructed; favor left-aligned, structured typography for a modern SaaS feel.",
-    "NEVER use AI emoji characters (🤖🧠💡) for icons. Use Phosphor, Lucide, or Heroicons.",
+    "NEVER use AI emoji characters (ðŸ¤–ðŸ§ ðŸ’¡) for icons. Use Phosphor, Lucide, or Heroicons.",
     "Always apply data-testid attributes (e.g., data-testid=\"roi-calculator-slider\") to all interactive elements, buttons, and input sliders.",
     "Do not use dark colors as gradients. Use solid dark colors with subtle 1px inner borders to create depth.",
     "Ensure no 'AI slop' aesthetics (meaningless purple/pink glowing blobs). Keep it sharp, technical, and grounded.",

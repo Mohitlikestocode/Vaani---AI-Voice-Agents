@@ -17,13 +17,13 @@ body {
 }
 
 /* Subtle technical grid motif */
-.vaani-grid {
+.swara-grid {
     background-image:
         linear-gradient(to right, rgba(9, 9, 11, 0.045) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(9, 9, 11, 0.045) 1px, transparent 1px);
     background-size: 28px 28px;
 }
-.vaani-grid-fade {
+.swara-grid-fade {
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 60% 30%, #000 30%, transparent 75%);
     mask-image: radial-gradient(ellipse 80% 60% at 60% 30%, #000 30%, transparent 75%);
 }
@@ -33,29 +33,29 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 
 /* Editorial marquee */
-@keyframes vaani-marquee {
+@keyframes swara-marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
 }
-.vaani-marquee-track {
+.swara-marquee-track {
     display: inline-flex;
     white-space: nowrap;
-    animation: vaani-marquee 32s linear infinite;
+    animation: swara-marquee 32s linear infinite;
 }
-.vaani-marquee-track:hover { animation-play-state: paused; }
+.swara-marquee-track:hover { animation-play-state: paused; }
 
 /* Voice waveform bars */
-@keyframes vaani-wave {
+@keyframes swara-wave {
     0%, 100% { transform: scaleY(0.2); }
     50% { transform: scaleY(1); }
 }
-.vaani-wave-bar {
+.swara-wave-bar {
     transform-origin: center;
-    animation: vaani-wave 1s ease-in-out infinite;
+    animation: swara-wave 1s ease-in-out infinite;
 }
 
 /* Grain overlay */
-.vaani-grain::before {
+.swara-grain::before {
     content: '';
     position: fixed;
     inset: 0;

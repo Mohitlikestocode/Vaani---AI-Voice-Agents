@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Odyssey — Fine Dining, Bangalore</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Georgia', serif;
+            color: #1a1a1a;
+            background: #faf9f7;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)),
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&q=80') center/cover;
+            color: white;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            padding: 0.4rem 1.2rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-family: sans-serif;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(8px);
+        }
+        nav .logo {
+            color: white;
+            font-size: 1.4rem;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+        nav .links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-left: 2rem;
+            font-family: sans-serif;
+        }
+        nav .links a:hover { color: white; }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        section h2 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: center;
+        }
+
+        /* Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .menu-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .menu-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        .menu-card .price {
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            color: #0055FF;
+            font-weight: 600;
+        }
+        .menu-card .desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* Info bar */
+        .info-bar {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .info-bar .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .info-bar h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.5);
+            font-family: sans-serif;
+            margin-bottom: 0.5rem;
+        }
+        .info-bar p {
+            font-size: 1rem;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: #999;
+            font-family: sans-serif;
+        }
+        footer .powered {
+            margin-top: 0.5rem;
+            color: #0055FF;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">My Odyssey</a>
+        <div class="links">
+            <a href="#menu">Menu</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div>
+            <span class="hero-badge">Est. 2019 · Bangalore</span>
+            <h1>My Odyssey</h1>
+            <p>A modern fine-dining experience where global flavours meet Indian soul. Open Mon–Sat, 12pm – 11pm.</p>
+        </div>
+    </div>
+
+    <section id="menu">
+        <h2>Our Menu</h2>
+        <p>Handcrafted dishes from our kitchen to your table.</p>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <h3>Truffle Mushroom Risotto</h3>
+                <span class="price">₹550</span>
+                <p class="desc">Arborio rice, wild mushrooms, aged parmesan, truffle oil.</p>
+            </div>
+            <div class="menu-card">
+                <h3>Lamb Shank</h3>
+                <span class="price">₹750</span>
+                <p class="desc">Slow-braised 8 hours, red wine jus, rosemary mash.</p>
+            </div>
+            <div class="menu-card">
+                <h3>Odyssey Thali</h3>
+                <span class="price">₹450</span>
+                <p class="desc">Chef's weekly selection — changes every Monday.</p>
+            </div>
+            <div class="menu-card">
+                <h3>Wood-Fired Pizza</h3>
+                <span class="price">from ₹400</span>
+                <p class="desc">Neapolitan style, 72-hour fermented dough.</p>
+            </div>
+            <div class="menu-card">
+                <h3>Cocktails</h3>
+                <span class="price">₹350–500</span>
+                <p class="desc">Full bar. Happy hour Mon–Thu 5–7pm (1+1 house cocktails).</p>
+            </div>
+            <div class="menu-card">
+                <h3>Sunday Brunch</h3>
+                <span class="price">₹999</span>
+                <p class="desc">Unlimited plates, 10am–3pm. Mimosas extra.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="info-bar" id="contact">
+        <div class="grid">
+            <div>
+                <h4>Location</h4>
+                <p>14 Brigade Road, above Crossword<br>Bangalore 560001</p>
+            </div>
+            <div>
+                <h4>Hours</h4>
+                <p>Mon–Sat: 12pm – 11pm<br>Sunday: Brunch 10am–3pm, Dinner 6–10pm</p>
+            </div>
+            <div>
+                <h4>Reservations</h4>
+                <p>Walk-in for ≤4 guests<br>5+ guests: book 1 day ahead<br>Or just ask our AI agent →</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 My Odyssey. All rights reserved.</p>
+        <p class="powered">AI agent powered by <strong>Swara</strong></p>
+    </footer>
+
+    <!-- ONE-LINE INTEGRATION: paste your embed code from Swara here -->
+    <script src="swara-widget.js" data-agent="7688505d-192e-470a-b8ca-14eb841e95b0" data-host="http://localhost:3001"></script>
+
+    <!-- Fallback: inline widget (popup approach — full mic permissions) -->
+    <script>
+    (function () {
+      if (document.getElementById('swara-widget-btn')) return;
+      var agentId = '7688505d-192e-470a-b8ca-14eb841e95b0';
+      var host = 'http://localhost:3001';
+      var CHAT_URL = host + '/chat/' + agentId + '?embed=true';
+
+      var style = document.createElement('style');
+      style.textContent = '#swara-widget-btn{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#0055FF;border:none;cursor:pointer;box-shadow:0 4px 24px rgba(0,85,255,0.3);display:flex;align-items:center;justify-content:center;z-index:99999;transition:transform 0.2s}#swara-widget-btn:hover{transform:scale(1.08)}#swara-widget-btn svg{width:28px;height:28px;fill:white}';
+      document.head.appendChild(style);
+
+      var btn = document.createElement('button');
+      btn.id = 'swara-widget-btn';
+      btn.title = 'Chat with us';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>';
+      document.body.appendChild(btn);
+
+      var chatWindow = null;
+      btn.addEventListener('click', function() {
+        if (chatWindow && !chatWindow.closed) {
+          chatWindow.focus();
+        } else {
+          chatWindow = window.open(CHAT_URL, 'swara-chat', 'width=400,height=620');
+        }
+      });
+    })();
+    </script>
+</body>
+</html>

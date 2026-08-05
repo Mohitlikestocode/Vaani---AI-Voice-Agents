@@ -1,20 +1,20 @@
-import { SmoothScroll } from "@/components/vaani/SmoothScroll";
-import { Navbar } from "@/components/vaani/Navbar";
-import { Hero } from "@/components/vaani/Hero";
-import { Marquee } from "@/components/vaani/Marquee";
-import { SeeItInAction } from "@/components/vaani/SeeItInAction";
-import { Manifesto } from "@/components/vaani/Manifesto";
-import { UseCases } from "@/components/vaani/UseCases";
-import { Features } from "@/components/vaani/Features";
-import { ROICalculator } from "@/components/vaani/ROICalculator";
-import { Pricing } from "@/components/vaani/Pricing";
-import { SocialProof } from "@/components/vaani/SocialProof";
-import { FinalCTA, Footer } from "@/components/vaani/FinalCTA";
+import { SmoothScroll } from "@/components/Swara/SmoothScroll";
+import { Navbar } from "@/components/Swara/Navbar";
+import { Hero } from "@/components/Swara/Hero";
+import { Marquee } from "@/components/Swara/Marquee";
+import { SeeItInAction } from "@/components/Swara/SeeItInAction";
+import { Manifesto } from "@/components/Swara/Manifesto";
+import { UseCases } from "@/components/Swara/UseCases";
+import { Features } from "@/components/Swara/Features";
+import { ROICalculator } from "@/components/Swara/ROICalculator";
+import { Pricing } from "@/components/Swara/Pricing";
+import { SocialProof } from "@/components/Swara/SocialProof";
+import { FinalCTA, Footer } from "@/components/Swara/FinalCTA";
 
 export default function Landing() {
   return (
     <SmoothScroll>
-      <div data-testid="landing-page" className="min-h-screen bg-vaani-cream font-sans text-vaani-ink">
+      <div data-testid="landing-page" className="min-h-screen bg-swara-cream font-sans text-swara-ink">
         <Navbar />
         <main>
           <Hero />
