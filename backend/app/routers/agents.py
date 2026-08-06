@@ -1,4 +1,7 @@
-"""API endpoints for agents, chat, and reservation management."""
+"""API endpoints for agents, chat, and reservation management.
+All endpoints are under /api/ prefix (set in main.py).
+Frontend calls these via fetch() from React pages.
+"""
 
 from fastapi import APIRouter, HTTPException, Query
 

@@ -1,3 +1,7 @@
+// Admin reservations panel — shows all bookings for a specific agent.
+// Fetches GET /api/agents/{id}/reservations. Supports date filtering.
+// Cancel button calls DELETE /api/agents/{id}/reservations/{rid}.
+
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, CalendarDays, Users, Clock, Trash2, RefreshCw } from "lucide-react";

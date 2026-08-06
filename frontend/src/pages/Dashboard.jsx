@@ -1,3 +1,7 @@
+// Dashboard page — shows all agents the user has created.
+// Fetches GET /api/agents on load. Shows Chat + Admin links for each agent.
+// Requires login (redirects to /login if not authenticated).
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Plus, MessageSquare, Settings, LogOut } from "lucide-react";

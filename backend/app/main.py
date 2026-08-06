@@ -1,3 +1,7 @@
+# Entry point for the backend server.
+# Creates the FastAPI app, enables CORS (so frontend can talk to it),
+# and mounts all route handlers.
+
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 

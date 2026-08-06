@@ -8,16 +8,17 @@ from datetime import datetime, timedelta
 
 from app.models.agent import Agent, Reservation
 
-# In-memory store: reservation_id -> Reservation
+# This dict IS our database. Key = reservation UUID (primary key), value = Reservation object.
 _reservations: dict[str, Reservation] = {}
 
 
+# Create a new reservation. First checks for duplicates, then checks seat availability.
 def create_reservation(
     agent: Agent, guest_name: str, party_size: int,
     date: str, time: str, phone: str = "", notes: str = "",
 ) -> dict:
     """Book a table. Returns the reservation or an error message."""
-    # Prevent duplicates: same guest, date, time, agent
+    # DEDUPLICATION: acts as UNIQUE constraint on (agent_id, guest_name, date, time)
     for r in _reservations.values():
         if (r.agent_id == agent.id and r.status == "confirmed"
                 and r.guest_name.lower() == guest_name.lower()
@@ -41,6 +42,8 @@ def create_reservation(
     return {"ok": True, "reservation": res}
 
 
+# Look up reservations by guest name. Used when customer says "I'm Mohit, change my booking".
+# Returns all matches — if multiple, the LLM asks the customer to clarify.
 def find_reservations(agent_id: str, guest_name: str) -> list[Reservation]:
     """Find all reservations for a guest by name (case-insensitive partial match)."""
     name_lower = guest_name.lower()
@@ -56,6 +59,7 @@ def get_reservation(reservation_id: str) -> Reservation | None:
     return _reservations.get(reservation_id)
 
 
+# Update specific fields of a reservation (found by UUID primary key).
 def update_reservation(reservation_id: str, updates: dict) -> dict:
     """Update a reservation's fields. Returns the updated reservation or error."""
     res = _reservations.get(reservation_id)
@@ -71,6 +75,7 @@ def update_reservation(reservation_id: str, updates: dict) -> dict:
     return {"ok": True, "reservation": res}
 
 
+# Soft-delete: sets status to "cancelled" (record stays, just hidden from listings).
 def cancel_reservation(reservation_id: str) -> dict:
     res = _reservations.get(reservation_id)
     if not res:
@@ -79,6 +84,9 @@ def cancel_reservation(reservation_id: str) -> dict:
     return {"ok": True, "message": f"Reservation for {res.guest_name} on {res.date} at {res.time} has been cancelled."}
 
 
+# AVAILABILITY ALGORITHM: checks if enough seats are free at the requested time.
+# Calculates time window (start + avg_eating_minutes), finds overlapping bookings,
+# sums their party sizes, and compares against total_seats.
 def check_availability(agent: Agent, date: str, time: str, party_size: int) -> tuple[bool, str]:
     """Check if enough seats are free at the requested date/time."""
     if party_size > agent.max_party_size:

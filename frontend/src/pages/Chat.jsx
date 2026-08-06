@@ -1,3 +1,7 @@
+// Chat page — handles text chat AND voice calls with the AI agent.
+// Voice uses browser-native APIs: Web Speech API (STT) + SpeechSynthesis (TTS).
+// No external voice services — everything runs client-side in Chrome.
+
 import { useState, useEffect, useRef } from "react";
 import { useParams, Link, useSearchParams } from "react-router-dom";
 import { Send, ArrowLeft, Bot, User, Settings, Mic, MicOff, Volume2, Phone, PhoneOff } from "lucide-react";
@@ -22,7 +26,7 @@ export default function Chat() {
   const recognitionRef = useRef(null);
   const inCallRef = useRef(false);
 
-  // Load agent details on mount
+  // On page load: fetch agent details from backend to show greeting + business name
   useEffect(() => {
     fetch(`${API}/api/agents/${agentId}`)
       .then((r) => r.json())
@@ -39,7 +43,7 @@ export default function Chat() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Send typed message (non-voice)
+  // Send a typed message — called when user presses Enter or clicks Send button
   const sendMessage = async () => {
     const userMsg = input.trim();
     if (!userMsg || sendingRef.current) return;
@@ -47,7 +51,7 @@ export default function Chat() {
     doSend(userMsg);
   };
 
-  // Call mode — toggle pause/resume, don't reset conversation
+  // Toggle voice call on/off. Pausing doesn't reset conversation — user can resume.
   const toggleCall = async () => {
     if (inCallRef.current) {
       // Pause call (don't reset conversation)
@@ -65,8 +69,11 @@ export default function Chat() {
     }
   };
 
+  // STT: Start browser's built-in Speech Recognition (Web Speech API).
+  // Creates ONE persistent instance for the entire call. Mic stays open.
+  // After 2.5s of silence, auto-sends whatever was heard.
   const startCallRecognition = () => {
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition; // Browser-native STT
     if (!SR) { alert("Use Chrome for voice."); return; }
 
     const rec = new SR();
@@ -134,6 +141,8 @@ export default function Chat() {
     rec.start();
   };
 
+  // Send user's speech to backend, get AI reply, then speak it aloud using TTS.
+  // onDone callback resumes the mic after speaking finishes.
   const doSendAndSpeak = async (text, onDone) => {
     setCallStatus("⏳ Thinking...");
     setSending(true);
@@ -150,7 +159,7 @@ export default function Chat() {
       setMessages((prev) => [...prev, { role: "agent", text: data.reply }]);
       setCallStatus("🔊 Speaking...");
 
-      // Speak the reply
+      // TTS: Browser-native SpeechSynthesis API — speaks the AI reply out loud
       const utterance = new SpeechSynthesisUtterance(data.reply);
       let done = false;
       const finish = () => { if (!done) { done = true; onDone(); } };

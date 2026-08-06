@@ -1,3 +1,6 @@
+// Root component — defines all page routes using React Router.
+// Each URL maps to a page component.
+
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "@/pages/Landing";

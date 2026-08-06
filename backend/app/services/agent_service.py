@@ -110,6 +110,9 @@ TOOLS = [
 ]
 
 
+# Build the system prompt — the hidden instructions that tell the AI who it is,
+# what it knows (business info), current date/time, and booking rules.
+# This is rebuilt on EVERY message so the time is always current.
 def _build_system_prompt(agent: Agent) -> str:
     from datetime import datetime
     now = datetime.now()
@@ -128,6 +131,8 @@ def _build_system_prompt(agent: Agent) -> str:
         f"   If any are missing, ASK for them. Do NOT guess.\n"
         f"2. Once you have all 4, call check_availability then create_reservation.\n"
         f"3. To change/cancel: call find_reservation by name, then update/cancel with the ID.\n"
+        f"   If multiple reservations found for the same name, ask the customer to confirm\n"
+        f"   their party size and booking time to identify the correct one.\n"
         f"4. Convert ALL relative times/dates to absolute:\n"
         f"   'in 1 hour' = {current_time} + 1hr. 'tomorrow' = day after {today}. 'tonight' = {today} evening.\n"
         f"   'this Sunday' = next Sunday from {today}. Always use YYYY-MM-DD and HH:MM.\n"
@@ -141,6 +146,8 @@ def _build_system_prompt(agent: Agent) -> str:
     )
 
 
+# Execute a tool that the LLM decided to call.
+# The LLM returns the tool name + arguments, we run the actual function here.
 def _execute_tool(agent: Agent, name: str, args: dict) -> str:
     """Run a tool function and return the result as a string for the LLM."""
     # Coerce party_size to int (model sometimes passes strings)
@@ -191,6 +198,7 @@ def _execute_tool(agent: Agent, name: str, args: dict) -> str:
     return json.dumps({"error": f"Unknown tool: {name}"})
 
 
+# Create a new agent and store it in memory (our "database" for the prototype).
 def create_agent(data: AgentCreate) -> Agent:
     agent = Agent(
         business_name=data.business_name,
@@ -215,6 +223,8 @@ def list_agents() -> list[Agent]:
     return sorted(_agents.values(), key=lambda a: a.created_at, reverse=True)
 
 
+# Fallback parser: some LLM models output tool calls as raw text like
+# <function=check_availability>{"date":"..."}. This catches and executes them.
 def _parse_raw_function_call(text: str) -> tuple[str, dict] | None:
     """Parse <function=name>{...}</function> format that bad models output as text."""
     match = re.search(r'<function=(\w+)>\s*(\{[^}]+\})', text)
@@ -226,6 +236,9 @@ def _parse_raw_function_call(text: str) -> tuple[str, dict] | None:
     return None
 
 
+# THE CORE FUNCTION: Send user message to Groq LLM, handle tool calls, return reply.
+# Flow: user msg → add to history → call Groq → if tool call: execute, loop → return text.
+# Loops up to 5 times (e.g. check_availability → create_reservation → final reply).
 def generate_reply(agent: Agent, user_message: str) -> str:
     """Send the user's message to Groq. If the AI wants to call a tool, execute it and continue."""
     history = _history.setdefault(agent.id, [])

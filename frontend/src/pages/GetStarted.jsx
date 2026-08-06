@@ -1,3 +1,7 @@
+// Agent creation wizard (4 steps): business info → instructions → capacity → greeting.
+// On submit: POST /api/agents → shows embed code for one-line website integration.
+// Requires login (redirects to /login if not authenticated).
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Sparkles, Copy, Check, ExternalLink } from "lucide-react";

@@ -1,4 +1,7 @@
-"""Simple login — checks email/password against values in .env."""
+"""Simple login — checks email/password against values in .env.
+No JWT, no tokens, no hashing. Just a direct string comparison.
+Credentials stored in backend/.env (ADMIN_EMAIL, ADMIN_PASSWORD).
+"""
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

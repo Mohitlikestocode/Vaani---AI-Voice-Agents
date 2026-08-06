@@ -1,3 +1,7 @@
+// Login page — simple email/password form.
+// Calls POST /api/auth/login. On success, saves to localStorage and redirects to /dashboard.
+// Credentials are checked against backend/.env (ADMIN_EMAIL, ADMIN_PASSWORD).
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Swara/Logo";
