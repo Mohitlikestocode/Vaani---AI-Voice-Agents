@@ -9,6 +9,7 @@ from app.models.agent import Agent, Reservation
 from app.db.database import _get_conn
 
 
+# Convert a SQLite row to a Reservation Python object
 def _row_to_reservation(row) -> Reservation:
     return Reservation(
         id=row["id"],
@@ -24,6 +25,7 @@ def _row_to_reservation(row) -> Reservation:
     )
 
 
+# Create a reservation: validates name, checks duplicates, checks availability, then INSERT into SQLite.
 def create_reservation(
     agent: Agent, guest_name: str, party_size: int,
     date: str, time: str, phone: str = "", notes: str = "",
@@ -65,6 +67,7 @@ def create_reservation(
     return {"ok": True, "reservation": res}
 
 
+# Look up reservations by guest name (case-insensitive partial match in SQLite).
 def find_reservations(agent_id: str, guest_name: str) -> list[Reservation]:
     """Find reservations by guest name (case-insensitive partial match)."""
     conn = _get_conn()
@@ -83,6 +86,7 @@ def get_reservation(reservation_id: str) -> Reservation | None:
     return _row_to_reservation(row) if row else None
 
 
+# Update specific fields of a reservation found by UUID primary key.
 def update_reservation(reservation_id: str, updates: dict) -> dict:
     """Update a reservation's fields."""
     conn = _get_conn()
@@ -113,6 +117,7 @@ def update_reservation(reservation_id: str, updates: dict) -> dict:
     return {"ok": True, "reservation": _row_to_reservation(updated)}
 
 
+# Soft-delete: sets status='cancelled' in SQLite (record stays for history).
 def cancel_reservation(reservation_id: str) -> dict:
     conn = _get_conn()
     row = conn.execute("SELECT * FROM reservations WHERE id=?", (reservation_id,)).fetchone()
@@ -125,6 +130,8 @@ def cancel_reservation(reservation_id: str) -> dict:
     return {"ok": True, "message": f"Reservation for {row['guest_name']} on {row['date']} at {row['time']} has been cancelled."}
 
 
+# AVAILABILITY CHECK: calculates time window overlaps to see if enough seats are free.
+# If full, calls _find_next_available to suggest the next open slot.
 def check_availability(agent: Agent, date: str, time: str, party_size: int) -> tuple[bool, str]:
     """Check if enough seats are free at the requested date/time."""
     if party_size > agent.max_party_size:
@@ -167,6 +174,7 @@ def check_availability(agent: Agent, date: str, time: str, party_size: int) -> t
     return True, f"{available_seats} seats available."
 
 
+# When seats are full, scan next 3.5 hours in 30-min slots to find one that works.
 def _find_next_available(agent: Agent, date: str, after: datetime, party_size: int) -> str | None:
     """Find the next 30-min slot that has enough seats."""
     conn = _get_conn()
@@ -193,6 +201,7 @@ def _find_next_available(agent: Agent, date: str, after: datetime, party_size: i
     return None
 
 
+# List all confirmed reservations for an agent (optionally filtered by date). Used by admin panel.
 def list_reservations(agent_id: str, date: str | None = None) -> list[Reservation]:
     """List all confirmed reservations, optionally filtered by date."""
     conn = _get_conn()
