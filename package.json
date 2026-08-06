@@ -1,0 +1,10 @@
+{
+  "name": "swara",
+  "private": true,
+  "scripts": {
+    "backend": "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload",
+    "frontend": "cd frontend && npm start",
+    "restaurant": "cd demo-restaurant && python -m http.server 5500",
+    "dev": "echo Run these in 3 separate terminals: npm run backend | npm run frontend | npm run restaurant"
+  }
+}
