@@ -1,32 +1,50 @@
 """
-Reservation service — manages bookings in memory.
-
+Reservation service — manages bookings in SQLite (persistent).
 Handles create / find / update / cancel + time-based availability checks.
 """
 
 from datetime import datetime, timedelta
 
 from app.models.agent import Agent, Reservation
-
-# This dict IS our database. Key = reservation UUID (primary key), value = Reservation object.
-_reservations: dict[str, Reservation] = {}
+from app.db.database import _get_conn
 
 
-# Create a new reservation. First checks for duplicates, then checks seat availability.
+def _row_to_reservation(row) -> Reservation:
+    return Reservation(
+        id=row["id"],
+        agent_id=row["agent_id"],
+        guest_name=row["guest_name"],
+        party_size=row["party_size"],
+        date=row["date"],
+        time=row["time"],
+        phone=row["phone"],
+        notes=row["notes"],
+        status=row["status"],
+        created_at=datetime.fromisoformat(row["created_at"]),
+    )
+
+
 def create_reservation(
     agent: Agent, guest_name: str, party_size: int,
     date: str, time: str, phone: str = "", notes: str = "",
 ) -> dict:
     """Book a table. Returns the reservation or an error message."""
-    # DEDUPLICATION: acts as UNIQUE constraint on (agent_id, guest_name, date, time)
-    for r in _reservations.values():
-        if (r.agent_id == agent.id and r.status == "confirmed"
-                and r.guest_name.lower() == guest_name.lower()
-                and r.date == date and r.time == time):
-            return {"ok": True, "reservation": r}
+    if not guest_name or guest_name.lower() in ("none", "null", "unknown", ""):
+        return {"ok": False, "error": "Guest name is required to make a reservation."}
+
+    # Deduplication check
+    conn = _get_conn()
+    existing = conn.execute(
+        "SELECT * FROM reservations WHERE agent_id=? AND status='confirmed' AND LOWER(guest_name)=LOWER(?) AND date=? AND time=?",
+        (agent.id, guest_name, date, time)
+    ).fetchone()
+    if existing:
+        conn.close()
+        return {"ok": True, "reservation": _row_to_reservation(existing)}
 
     available, reason = check_availability(agent, date, time, party_size)
     if not available:
+        conn.close()
         return {"ok": False, "error": reason}
 
     res = Reservation(
@@ -38,60 +56,79 @@ def create_reservation(
         phone=phone,
         notes=notes,
     )
-    _reservations[res.id] = res
+    conn.execute(
+        "INSERT INTO reservations (id, agent_id, guest_name, party_size, date, time, phone, notes, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (res.id, res.agent_id, res.guest_name, res.party_size, res.date, res.time, res.phone, res.notes, res.status, res.created_at.isoformat())
+    )
+    conn.commit()
+    conn.close()
     return {"ok": True, "reservation": res}
 
 
-# Look up reservations by guest name. Used when customer says "I'm Mohit, change my booking".
-# Returns all matches — if multiple, the LLM asks the customer to clarify.
 def find_reservations(agent_id: str, guest_name: str) -> list[Reservation]:
-    """Find all reservations for a guest by name (case-insensitive partial match)."""
-    name_lower = guest_name.lower()
-    return [
-        r for r in _reservations.values()
-        if r.agent_id == agent_id
-        and r.status == "confirmed"
-        and name_lower in r.guest_name.lower()
-    ]
+    """Find reservations by guest name (case-insensitive partial match)."""
+    conn = _get_conn()
+    rows = conn.execute(
+        "SELECT * FROM reservations WHERE agent_id=? AND status='confirmed' AND LOWER(guest_name) LIKE ?",
+        (agent_id, f"%{guest_name.lower()}%")
+    ).fetchall()
+    conn.close()
+    return [_row_to_reservation(r) for r in rows]
 
 
 def get_reservation(reservation_id: str) -> Reservation | None:
-    return _reservations.get(reservation_id)
+    conn = _get_conn()
+    row = conn.execute("SELECT * FROM reservations WHERE id=?", (reservation_id,)).fetchone()
+    conn.close()
+    return _row_to_reservation(row) if row else None
 
 
-# Update specific fields of a reservation (found by UUID primary key).
 def update_reservation(reservation_id: str, updates: dict) -> dict:
-    """Update a reservation's fields. Returns the updated reservation or error."""
-    res = _reservations.get(reservation_id)
-    if not res:
+    """Update a reservation's fields."""
+    conn = _get_conn()
+    row = conn.execute("SELECT * FROM reservations WHERE id=?", (reservation_id,)).fetchone()
+    if not row:
+        conn.close()
         return {"ok": False, "error": "Reservation not found."}
-    if res.status == "cancelled":
+    if row["status"] == "cancelled":
+        conn.close()
         return {"ok": False, "error": "This reservation was already cancelled."}
 
+    # Build SET clause from provided updates
+    valid_fields = ("guest_name", "party_size", "date", "time", "phone", "notes")
+    sets = []
+    values = []
     for key, value in updates.items():
-        if value is not None and hasattr(res, key):
-            setattr(res, key, value)
+        if key in valid_fields and value is not None:
+            sets.append(f"{key}=?")
+            values.append(value)
+    if sets:
+        values.append(reservation_id)
+        conn.execute(f"UPDATE reservations SET {', '.join(sets)} WHERE id=?", values)
+        conn.commit()
 
-    return {"ok": True, "reservation": res}
+    # Re-fetch updated row
+    updated = conn.execute("SELECT * FROM reservations WHERE id=?", (reservation_id,)).fetchone()
+    conn.close()
+    return {"ok": True, "reservation": _row_to_reservation(updated)}
 
 
-# Soft-delete: sets status to "cancelled" (record stays, just hidden from listings).
 def cancel_reservation(reservation_id: str) -> dict:
-    res = _reservations.get(reservation_id)
-    if not res:
+    conn = _get_conn()
+    row = conn.execute("SELECT * FROM reservations WHERE id=?", (reservation_id,)).fetchone()
+    if not row:
+        conn.close()
         return {"ok": False, "error": "Reservation not found."}
-    res.status = "cancelled"
-    return {"ok": True, "message": f"Reservation for {res.guest_name} on {res.date} at {res.time} has been cancelled."}
+    conn.execute("UPDATE reservations SET status='cancelled' WHERE id=?", (reservation_id,))
+    conn.commit()
+    conn.close()
+    return {"ok": True, "message": f"Reservation for {row['guest_name']} on {row['date']} at {row['time']} has been cancelled."}
 
 
-# AVAILABILITY ALGORITHM: checks if enough seats are free at the requested time.
-# Calculates time window (start + avg_eating_minutes), finds overlapping bookings,
-# sums their party sizes, and compares against total_seats.
 def check_availability(agent: Agent, date: str, time: str, party_size: int) -> tuple[bool, str]:
     """Check if enough seats are free at the requested date/time."""
     if party_size > agent.max_party_size:
         return False, f"Sorry, we can only accommodate groups up to {agent.max_party_size}."
-
     if party_size < 1:
         return False, "Party size must be at least 1."
 
@@ -102,24 +139,25 @@ def check_availability(agent: Agent, date: str, time: str, party_size: int) -> t
 
     req_end = req_start + timedelta(minutes=agent.avg_eating_minutes)
 
-    # Count seats in use during the requested window
+    conn = _get_conn()
+    rows = conn.execute(
+        "SELECT party_size, time FROM reservations WHERE agent_id=? AND status='confirmed' AND date=?",
+        (agent.id, date)
+    ).fetchall()
+    conn.close()
+
     seats_in_use = 0
-    for r in _reservations.values():
-        if r.agent_id != agent.id or r.status != "confirmed" or r.date != date:
-            continue
+    for r in rows:
         try:
-            r_start = datetime.strptime(f"{r.date} {r.time}", "%Y-%m-%d %H:%M")
+            r_start = datetime.strptime(f"{date} {r['time']}", "%Y-%m-%d %H:%M")
         except ValueError:
             continue
         r_end = r_start + timedelta(minutes=agent.avg_eating_minutes)
-
-        # Two reservations overlap if one starts before the other ends
         if req_start < r_end and r_start < req_end:
-            seats_in_use += r.party_size
+            seats_in_use += r["party_size"]
 
     available_seats = agent.total_seats - seats_in_use
     if party_size > available_seats:
-        # Suggest next available slot (check every 30 min for the next 3 hours)
         suggestion = _find_next_available(agent, date, req_start, party_size)
         msg = f"Only {available_seats} seats available at {time} on {date}."
         if suggestion:
@@ -130,23 +168,26 @@ def check_availability(agent: Agent, date: str, time: str, party_size: int) -> t
 
 
 def _find_next_available(agent: Agent, date: str, after: datetime, party_size: int) -> str | None:
-    """Find the next 30-min slot on the same date that has enough seats."""
-    for offset in range(30, 210, 30):  # check +30min to +3.5hrs
+    """Find the next 30-min slot that has enough seats."""
+    conn = _get_conn()
+    rows = conn.execute(
+        "SELECT party_size, time FROM reservations WHERE agent_id=? AND status='confirmed' AND date=?",
+        (agent.id, date)
+    ).fetchall()
+    conn.close()
+
+    for offset in range(30, 210, 30):
         candidate = after + timedelta(minutes=offset)
         candidate_end = candidate + timedelta(minutes=agent.avg_eating_minutes)
-
         seats_in_use = 0
-        for r in _reservations.values():
-            if r.agent_id != agent.id or r.status != "confirmed" or r.date != date:
-                continue
+        for r in rows:
             try:
-                r_start = datetime.strptime(f"{r.date} {r.time}", "%Y-%m-%d %H:%M")
+                r_start = datetime.strptime(f"{date} {r['time']}", "%Y-%m-%d %H:%M")
             except ValueError:
                 continue
             r_end = r_start + timedelta(minutes=agent.avg_eating_minutes)
             if candidate < r_end and r_start < candidate_end:
-                seats_in_use += r.party_size
-
+                seats_in_use += r["party_size"]
         if party_size <= (agent.total_seats - seats_in_use):
             return candidate.strftime("%H:%M")
     return None
@@ -154,10 +195,16 @@ def _find_next_available(agent: Agent, date: str, after: datetime, party_size: i
 
 def list_reservations(agent_id: str, date: str | None = None) -> list[Reservation]:
     """List all confirmed reservations, optionally filtered by date."""
-    results = [
-        r for r in _reservations.values()
-        if r.agent_id == agent_id and r.status == "confirmed"
-    ]
+    conn = _get_conn()
     if date:
-        results = [r for r in results if r.date == date]
-    return sorted(results, key=lambda r: (r.date, r.time))
+        rows = conn.execute(
+            "SELECT * FROM reservations WHERE agent_id=? AND status='confirmed' AND date=? ORDER BY date, time",
+            (agent_id, date)
+        ).fetchall()
+    else:
+        rows = conn.execute(
+            "SELECT * FROM reservations WHERE agent_id=? AND status='confirmed' ORDER BY date, time",
+            (agent_id,)
+        ).fetchall()
+    conn.close()
+    return [_row_to_reservation(r) for r in rows]

@@ -245,15 +245,12 @@
         <p class="powered">AI agent powered by <strong>Swara</strong></p>
     </footer>
 
-    <!-- ONE-LINE INTEGRATION: paste your embed code from Swara here -->
-    <script src="swara-widget.js" data-agent="7688505d-192e-470a-b8ca-14eb841e95b0" data-host="http://localhost:3001"></script>
-
-    <!-- Fallback: inline widget (popup approach — full mic permissions) -->
-    <script>
+    <!-- ✅ ONE-LINE INTEGRATION: Just change the data-agent value below to your agent ID -->
+    <script data-agent="92505635-6fae-4154-aef0-522d4b883b3f" data-host="http://localhost:3000">
     (function () {
-      if (document.getElementById('swara-widget-btn')) return;
-      var agentId = '7688505d-192e-470a-b8ca-14eb841e95b0';
-      var host = 'http://localhost:3001';
+      var s = document.currentScript;
+      var agentId = s.getAttribute('data-agent');
+      var host = s.getAttribute('data-host');
       var CHAT_URL = host + '/chat/' + agentId + '?embed=true';
 
       var style = document.createElement('style');
@@ -268,11 +265,8 @@
 
       var chatWindow = null;
       btn.addEventListener('click', function() {
-        if (chatWindow && !chatWindow.closed) {
-          chatWindow.focus();
-        } else {
-          chatWindow = window.open(CHAT_URL, 'swara-chat', 'width=400,height=620');
-        }
+        if (chatWindow && !chatWindow.closed) { chatWindow.focus(); }
+        else { chatWindow = window.open(CHAT_URL, 'swara-chat', 'width=400,height=620'); }
       });
     })();
     </script>

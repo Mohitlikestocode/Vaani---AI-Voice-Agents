@@ -1,5 +1,5 @@
 """
-Agent service — stores agents in memory, generates replies via Groq LLM.
+Agent service — stores agents in SQLite, generates replies via Groq LLM.
 
 The AI can manage reservations through function calling:
 it decides when to book/edit/cancel/check, calls the right function,
@@ -8,13 +8,15 @@ and replies to the user with the result.
 
 import json
 import re
+from datetime import datetime, timezone
 from groq import Groq
 
 from app.core import settings
 from app.models.agent import Agent, AgentCreate
 from app.services import reservation_service as rsv
+from app.db.database import _get_conn
 
-_agents: dict[str, Agent] = {}
+# Conversation history stays in memory (not worth persisting for prototype)
 _history: dict[str, list[dict]] = {}
 _groq = Groq(api_key=settings.groq_api_key)
 
@@ -198,7 +200,7 @@ def _execute_tool(agent: Agent, name: str, args: dict) -> str:
     return json.dumps({"error": f"Unknown tool: {name}"})
 
 
-# Create a new agent and store it in memory (our "database" for the prototype).
+# Create a new agent and store it in SQLite (persistent across restarts).
 def create_agent(data: AgentCreate) -> Agent:
     agent = Agent(
         business_name=data.business_name,
@@ -210,17 +212,46 @@ def create_agent(data: AgentCreate) -> Agent:
         max_party_size=data.max_party_size,
         reservations_enabled=data.reservations_enabled,
     )
-    _agents[agent.id] = agent
-    _history[agent.id] = []
+    conn = _get_conn()
+    conn.execute(
+        "INSERT INTO agents (id, owner_id, business_name, business_type, greeting, instructions, total_seats, avg_eating_minutes, max_party_size, reservations_enabled, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (agent.id, agent.owner_id, agent.business_name, agent.business_type, agent.greeting, agent.instructions, agent.total_seats, agent.avg_eating_minutes, agent.max_party_size, int(agent.reservations_enabled), agent.created_at.isoformat())
+    )
+    conn.commit()
+    conn.close()
     return agent
 
 
 def get_agent(agent_id: str) -> Agent | None:
-    return _agents.get(agent_id)
+    conn = _get_conn()
+    row = conn.execute("SELECT * FROM agents WHERE id = ?", (agent_id,)).fetchone()
+    conn.close()
+    if not row:
+        return None
+    return _row_to_agent(row)
 
 
 def list_agents() -> list[Agent]:
-    return sorted(_agents.values(), key=lambda a: a.created_at, reverse=True)
+    conn = _get_conn()
+    rows = conn.execute("SELECT * FROM agents ORDER BY created_at DESC").fetchall()
+    conn.close()
+    return [_row_to_agent(r) for r in rows]
+
+
+def _row_to_agent(row) -> Agent:
+    return Agent(
+        id=row["id"],
+        owner_id=row["owner_id"],
+        business_name=row["business_name"],
+        business_type=row["business_type"],
+        greeting=row["greeting"],
+        instructions=row["instructions"],
+        total_seats=row["total_seats"],
+        avg_eating_minutes=row["avg_eating_minutes"],
+        max_party_size=row["max_party_size"],
+        reservations_enabled=bool(row["reservations_enabled"]),
+        created_at=datetime.fromisoformat(row["created_at"]),
+    )
 
 
 # Fallback parser: some LLM models output tool calls as raw text like
