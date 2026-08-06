@@ -25,6 +25,23 @@ export default function Chat() {
   const bottomRef = useRef(null);
   const recognitionRef = useRef(null);
   const inCallRef = useRef(false);
+  const voiceRef = useRef(null);
+
+  // Preload TTS voices (Chrome loads them async)
+  useEffect(() => {
+    const pickVoice = () => {
+      const voices = window.speechSynthesis.getVoices();
+      if (!voices.length) return;
+      // Priority: Zira (female) > Google US English > any en-US female
+      voiceRef.current = voices.find(v => v.name.includes("Zira"))
+        || voices.find(v => v.name === "Google US English")
+        || voices.find(v => v.name.includes("Female") && v.lang.startsWith("en"))
+        || voices.find(v => v.lang === "en-US" && !v.name.includes("David"))
+        || null;
+    };
+    pickVoice();
+    window.speechSynthesis.onvoiceschanged = pickVoice;
+  }, []);
 
   // On page load: fetch agent details from backend to show greeting + business name
   useEffect(() => {
@@ -161,6 +178,9 @@ export default function Chat() {
 
       // TTS: Browser-native SpeechSynthesis API — speaks the AI reply out loud
       const utterance = new SpeechSynthesisUtterance(data.reply);
+      if (voiceRef.current) utterance.voice = voiceRef.current;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.1;
       let done = false;
       const finish = () => { if (!done) { done = true; onDone(); } };
       utterance.onend = finish;

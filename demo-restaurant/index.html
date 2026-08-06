@@ -245,30 +245,37 @@
         <p class="powered">AI agent powered by <strong>Swara</strong></p>
     </footer>
 
-    <!-- ✅ ONE-LINE INTEGRATION: Just change the data-agent value below to your agent ID -->
-    <script data-agent="92505635-6fae-4154-aef0-522d4b883b3f" data-host="http://localhost:3000">
-    (function () {
-      var s = document.currentScript;
-      var agentId = s.getAttribute('data-agent');
-      var host = s.getAttribute('data-host');
-      var CHAT_URL = host + '/chat/' + agentId + '?embed=true';
+    <!-- ✅ PASTE YOUR FULL EMBED CODE FROM SWARA BELOW (replace this entire line): -->
+    <script src="http://localhost:3000/swara-widget.js" data-agent="71fee22f-c723-46ff-bf14-c3c53161d364" data-host="http://localhost:3000"></script>
 
-      var style = document.createElement('style');
-      style.textContent = '#swara-widget-btn{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#0055FF;border:none;cursor:pointer;box-shadow:0 4px 24px rgba(0,85,255,0.3);display:flex;align-items:center;justify-content:center;z-index:99999;transition:transform 0.2s}#swara-widget-btn:hover{transform:scale(1.08)}#swara-widget-btn svg{width:28px;height:28px;fill:white}';
-      document.head.appendChild(style);
+    <!-- Backup: if the above external script doesn't load, this inline version runs -->
+    <script>
+    if (!document.getElementById('swara-widget-btn')) {
+      (function () {
+        var scripts = document.querySelectorAll('script[data-agent]');
+        var s = scripts[0];
+        if (!s) return;
+        var agentId = s.getAttribute('data-agent');
+        var host = s.getAttribute('data-host');
+        var CHAT_URL = host + '/chat/' + agentId + '?embed=true';
 
-      var btn = document.createElement('button');
-      btn.id = 'swara-widget-btn';
-      btn.title = 'Chat with us';
-      btn.innerHTML = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>';
-      document.body.appendChild(btn);
+        var style = document.createElement('style');
+        style.textContent = '#swara-widget-btn{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#0055FF;border:none;cursor:pointer;box-shadow:0 4px 24px rgba(0,85,255,0.3);display:flex;align-items:center;justify-content:center;z-index:99999;transition:transform 0.2s}#swara-widget-btn:hover{transform:scale(1.08)}#swara-widget-btn svg{width:28px;height:28px;fill:white}';
+        document.head.appendChild(style);
 
-      var chatWindow = null;
-      btn.addEventListener('click', function() {
-        if (chatWindow && !chatWindow.closed) { chatWindow.focus(); }
-        else { chatWindow = window.open(CHAT_URL, 'swara-chat', 'width=400,height=620'); }
-      });
-    })();
+        var btn = document.createElement('button');
+        btn.id = 'swara-widget-btn';
+        btn.title = 'Chat with us';
+        btn.innerHTML = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>';
+        document.body.appendChild(btn);
+
+        var chatWindow = null;
+        btn.addEventListener('click', function() {
+          if (chatWindow && !chatWindow.closed) { chatWindow.focus(); }
+          else { chatWindow = window.open(CHAT_URL, 'swara-chat', 'width=400,height=620'); }
+        });
+      })();
+    }
     </script>
 </body>
 </html>
